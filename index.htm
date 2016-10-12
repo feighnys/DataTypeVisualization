@@ -6,8 +6,15 @@
 <style>
 button{border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;line-height:32px;}
 article{background-color:#66aa66;color:#008800;float:left;width:16px;height:26px;border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;text-align:center;}
-table{border:solid 2px;font-family:monospace;font-size:16pt}
+table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collapse:collapse;padding:5px;}
+#mantissa1 table tr .sc{width:100px;}
+#mantissa1 table tr .ec{width:200px;}
+#mantissa1 table tr .mc{width:500px;}
 
+#mantissa2 table tr .sc{width:100px;}
+#mantissa2 table tr .ec{width:300px;}
+#mantissa2 table tr .mc{width:1100px;}
+.center{margin:auto;display:block;}
 </style>
 </head>
 
@@ -25,7 +32,7 @@ table{border:solid 2px;font-family:monospace;font-size:16pt}
 <br>
 
 <div id="main" style="visibility:hidden;">
-    <p id="info" style="font-family:monospace;font-size:16px;">Input a custom value:</p>
+    <p id="info" style="font-family:monospace;font-size:16px;height:16px;">Input a custom value:</p>
     <input id="input" type="text"></input>
     <button id="b1" type="button" style="font-size:12pt;line-height:16px;" onclick="changeP()">Enter</button>
     <br>
@@ -144,6 +151,171 @@ table{border:solid 2px;font-family:monospace;font-size:16pt}
     <br>
     <br>
     <br>
+    <br>
+    <div id="mantissa1" class="mantissa">
+        <table style="border-collapse:collapse;text-align:center;">
+            <tr style="">
+                <th class="sc" style="">Sign</th>
+                <th class="ec" style="">Exponent</th>
+                <th class="mc" style="">Mantissa</th>
+            </tr>
+            <tr>
+                <td class="sc">1 bit</td>
+                <td class="ec">8 bits</td>
+                <td class="mc">23 bits</td>
+            </tr>
+            <tr>
+                <td class="sc">
+                    <div class="center" style="width:20px;">
+                        <article id="bit0m">0</article>
+                    </div>
+                </td>
+                <td class="ec">
+                    <div class="center" style="width:160px;">
+                        <article id="bit1m">0</article>
+                        <article id="bit2m">0</article>
+                        <article id="bit3m">0</article>
+                        <article id="bit4m">0</article>
+                        <article id="bit5m">0</article>
+                        <article id="bit6m">0</article>
+                        <article id="bit7m">0</article>
+                        <article id="bit8m">0</article>
+                    </div>
+                </td>
+                <td class="mc">
+                    <div class="center" style="width:460px;">
+                        <article id="bit9m">0</article>
+                        <article id="bit10m">0</article>
+                        <article id="bit11m">0</article>
+                        <article id="bit12m">0</article>
+                        <article id="bit13m">0</article>
+                        <article id="bit14m">0</article>
+                        <article id="bit15m">0</article>
+                        <article id="bit16m">0</article>
+                        <article id="bit17m">0</article>
+                        <article id="bit18m">0</article>
+                        <article id="bit19m">0</article>
+                        <article id="bit20m">0</article>
+                        <article id="bit21m">0</article>
+                        <article id="bit22m">0</article>
+                        <article id="bit23m">0</article>
+                        <article id="bit24m">0</article>
+                        <article id="bit25m">0</article>
+                        <article id="bit26m">0</article>
+                        <article id="bit27m">0</article>
+                        <article id="bit28m">0</article>
+                        <article id="bit29m">0</article>
+                        <article id="bit30m">0</article>
+                        <article id="bit31m">0</article>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="sc" id="sValue1"></td>
+                <td class="ec" id="eValue1"></td>
+                <td class="mc" id="mValue1"></td>
+            </tr>
+
+        </table>
+    </div>
+    <div id="mantissa2" class="mantissa">
+        <table style="border-collapse:collapse;text-align:center;">
+            <tr style="">
+                <th class="sc" style="">Sign</th>
+                <th class="ec" style="">Exponent</th>
+                <th class="mc" style="">Mantissa</th>
+            </tr>
+            <tr>
+                <td class="sc">1 bit</td>
+                <td class="ec">11 bits</td>
+                <td class="mc">52 bits</td>
+            </tr>
+            <tr>
+                <td class="sc">
+                    <div class="center" style="width:20px;">
+                        <article id="bit0m2">0</article>
+                    </div>
+                </td>
+                <td class="ec">
+                    <div class="center" style="width:220px;">
+                        <article id="bit1m2">0</article>
+                        <article id="bit2m2">0</article>
+                        <article id="bit3m2">0</article>
+                        <article id="bit4m2">0</article>
+                        <article id="bit5m2">0</article>
+                        <article id="bit6m2">0</article>
+                        <article id="bit7m2">0</article>
+                        <article id="bit8m2">0</article>
+                        <article id="bit9m2">0</article>
+                        <article id="bit10m2">0</article>
+                        <article id="bit11m2">0</article>
+                    </div>
+                </td>
+                <td class="mc">
+                    <div class="center" style="width:1040px;">
+                        <article id="bit12m2">0</article>
+                        <article id="bit13m2">0</article>
+                        <article id="bit14m2">0</article>
+                        <article id="bit15m2">0</article>
+                        <article id="bit16m2">0</article>
+                        <article id="bit17m2">0</article>
+                        <article id="bit18m2">0</article>
+                        <article id="bit19m2">0</article>
+                        <article id="bit20m2">0</article>
+                        <article id="bit21m2">0</article>
+                        <article id="bit22m2">0</article>
+                        <article id="bit23m2">0</article>
+                        <article id="bit24m2">0</article>
+                        <article id="bit25m2">0</article>
+                        <article id="bit26m2">0</article>
+                        <article id="bit27m2">0</article>
+                        <article id="bit28m2">0</article>
+                        <article id="bit29m2">0</article>
+                        <article id="bit30m2">0</article>
+                        <article id="bit31m2">0</article>
+                        <article id="bit32m2">0</article>
+                        <article id="bit33m2">0</article>
+                        <article id="bit34m2">0</article>
+                        <article id="bit35m2">0</article>
+                        <article id="bit36m2">0</article>
+                        <article id="bit37m2">0</article>
+                        <article id="bit38m2">0</article>
+                        <article id="bit39m2">0</article>
+                        <article id="bit40m2">0</article>
+                        <article id="bit41m2">0</article>
+                        <article id="bit42m2">0</article>
+                        <article id="bit43m2">0</article>
+                        <article id="bit44m2">0</article>
+                        <article id="bit45m2">0</article>
+                        <article id="bit46m2">0</article>
+                        <article id="bit47m2">0</article>
+                        <article id="bit48m2">0</article>
+                        <article id="bit49m2">0</article>
+                        <article id="bit50m2">0</article>
+                        <article id="bit51m2">0</article>
+                        <article id="bit52m2">0</article>
+                        <article id="bit53m2">0</article>
+                        <article id="bit54m2">0</article>
+                        <article id="bit55m2">0</article>
+                        <article id="bit56m2">0</article>
+                        <article id="bit57m2">0</article>
+                        <article id="bit58m2">0</article>
+                        <article id="bit59m2">0</article>
+                        <article id="bit60m2">0</article>
+                        <article id="bit61m2">0</article>
+                        <article id="bit62m2">0</article>
+                        <article id="bit63m2">0</article>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="sc" id="sValue2"></td>
+                <td class="ec" id="eValue2"></td>
+                <td class="mc" id="mValue2"></td>
+            </tr>
+
+        </table>
+    </div>
     <br>
     <h2 style=";font-family:monospace;">Hexidecimal:</h2>
     <div id="byte7h" style="visibility:hidden;float:right;padding:4px">

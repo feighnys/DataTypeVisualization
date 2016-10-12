@@ -14,6 +14,8 @@ function changeP(){
 		        value = ""+(value.valueOf() % 256);
 		    }
 		    document.getElementById("value").innerHTML = value;
+		    bin = ubBin(value.valueOf());
+		    showBytes(1, bin);
 		}
 		else{
             document.getElementById("info").innerHTML = "Invalid Value"
@@ -32,6 +34,8 @@ function changeP(){
 	            if(value.valueOf() < -128){value = "" + (value.valueOf() - -256);}
 	        }
 	        document.getElementById("value").innerHTML = value;
+	        bin = ubBin((value.valueOf() + 256) % 256);
+	        showBytes(1, bin);
 	    }
 	    else{
 	        document.getElementById("info").innerHTML = "Invalid Value"
@@ -109,7 +113,7 @@ function float(){
 	unClick();
 	document.getElementById("float").style.borderWidth = "5";
     value = 0;
-    if (Math.random() < .8) {
+    if (Math.random() < .7) {
         value = 1;
         bin = "0"
     }
@@ -117,20 +121,25 @@ function float(){
         value = -1;
         bin = "1"
     }
+    document.getElementById("sValue1").innerHTML = value;
+
     var exp = Math.floor(Math.random() * 256);
+    document.getElementById("eValue1").innerHTML = "2^"+(exp-127);
     var tb = ubBin(exp);
     for (var i = tb.length; i < 8; i++){
         tb = "0" + tb;
     }
     bin = bin + tb;
     var sig = Math.floor(Math.random() * Math.pow(2, 23));
+    document.getElementById("mValue1").innerHTML = "1."+sig;
     tb = ubBin(sig);
     for (var i = tb.length; i < 23; i++){
         tb = "0" + tb;
     }
     bin = bin + tb;
-
-    value = (value + (sig * Math.pow(10, -23))) * Math.pow(2, exp - 127);
+    value = value + "." + sig;
+    value = value.valueOf() * Math.pow(2, exp - 127);
+    //value = value * (1 + (sig * Math.pow(10, -23))) * Math.pow(2, exp - 127);
     value = value + ""
     if (value.indexOf(".") == -1){
         value = value + ".0";
@@ -140,13 +149,14 @@ function float(){
     document.getElementById('type').innerHTML = "Single Precision Floating Point Decimal";
     type = "f";
     showBytes(4, bin);
+
 }
 
 function double(){
 	unClick()
 	document.getElementById("double").style.borderWidth = "5";
     value = 0;
-    if (Math.random() < .8) {
+    if (Math.random() < .7) {
         value = 1;
         bin = "0";
     }
@@ -154,21 +164,25 @@ function double(){
         value = -1;
         bin = "1";
     }
-    var exp = Math.floor(Math.random() * Math.pow(2,12));
+    document.getElementById("sValue2").innerHTML = value;
 
+    var exp = Math.floor(Math.random() * Math.pow(2,12));
+    document.getElementById("eValue2").innerHTML = "2^"+(exp-1023);
 	var tb = ubBin(exp);
     for (var i = tb.length; i < 11; i++) {
         tb = "0" + tb;
     }
     bin = bin + tb;
     var sig = Math.floor(Math.random() * Math.pow(2, 52));
+    document.getElementById("mValue2").innerHTML = "1." + sig;
     tb = ubBin(sig);
     for (var i = tb.length; i < 52; i++) {
         tb = "0" + tb;
     }
     bin = bin + tb;
-
-    value = (value + (sig * Math.pow(10, -52))) * Math.pow(2, exp - 1023);
+    value = value + "." + sig;
+    value = value.valueOf() * Math.pow(2, exp - 1023);
+    //value = (value + (sig * Math.pow(10, -52))) * Math.pow(2, exp - 1023);
     value = value + "";
     if (value.indexOf("Inf") != -1) { double();}
     if (value.indexOf(".") == -1) {
@@ -191,6 +205,8 @@ function unClick(){
 	document.getElementById("double").style.borderWidth = "2";
 	
 	document.getElementById("main").style.visibility = "visible";
+	document.getElementById("mantissa1").style.display = "none";
+	document.getElementById("mantissa2").style.display = "none";
 }
 
 function ubBin(n){
@@ -209,7 +225,26 @@ function sBin(str){
 	return t;
 }
 
-function showBytes(b, str){
+function man1(str) {
+    document.getElementById("mantissa1").style.display = "block";
+    var i = 0;
+    for (i = 0; i < 32; i++) {
+        document.getElementById("bit" + i + "m").innerHTML = str.charAt(i);
+    }
+}
+function man2(str) {
+    document.getElementById("mantissa2").style.display = "block";
+    var i = 0;
+    for (i = 0; i < 64; i++) {
+        document.getElementById("bit" + i + "m2").innerHTML = str.charAt(i);
+    }
+}
+
+function showBytes(b, str) {
+
+    if (type == "f") { man1(str); }
+    if (type == "d") { man2(str) }
+
     var i = 0;
 	showHex(b, str);
     //hide all bytes
