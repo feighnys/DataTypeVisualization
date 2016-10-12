@@ -1,0 +1,206 @@
+<html>
+
+<head>
+<title>Test site</title>
+<script src="main.js"></script>
+<style>
+button{border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;line-height:32px;}
+article{background-color:#66aa66;color:#008800;float:left;width:16px;height:26px;border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;text-align:center;}
+table{border:solid 2px;font-family:monospace;font-size:16pt}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <button id="boolean" style="background-color:#228822;color:#114411;" type="button" onclick="boolean()">Boolean</button>
+    <button id="sb" type="button" style="background-color:#0044ff;color:#002288;" onclick="signedByte()">Signed Byte Integer</button>
+    <button id="ub" style="background-color:#0044ff;color:#002288;" type="button" onclick="unsignedByte()">Unsigned Byte Integer</button>
+    <button id="float" style="background-color:#ff8800;color:#884400;" type="button" onclick="float()">Float</button>
+    <button id="double" style="background-color:#ff8800;color:#884400;" type="button" onclick="double()">Double</button>
+    <button id="string" style="background-color:#ff8888;color:#884444;" type="button" onclick="string()">String</button>
+</header>
+<br>
+<br>
+
+<div id="main" style="visibility:hidden;">
+    <p id="info" style="font-family:monospace;font-size:16px;">Input a custom value:</p>
+    <input id="input" type="text"></input>
+    <button id="b1" type="button" style="font-size:12pt;line-height:16px;" onclick="changeP()">Enter</button>
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <th style="width:150px;">Data Type:</th>
+            <td id="type" style="width:500px;"> </td>
+        </tr>
+        <tr>
+            <th style="width:150px;">Value:</th>
+            <td id="value" style="width:500px;"> </td>
+        </tr>
+    </table>
+
+
+    <h2 style=";font-family:monospace;">Binary:</h2>
+    <div id="byte7" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">56</span>
+        <br>
+        <article id="bit77">7</article>
+        <article id="bit76">6</article>
+        <article id="bit75">5</article>
+        <article id="bit74">4</article>
+        <article id="bit73">3</article>
+        <article id="bit72">2</article>
+        <article id="bit71">1</article>
+        <article id="bit70">0</article>
+    </div>
+    <div id="byte6" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">48</span>
+        <br>
+        <article id="bit67">7</article>
+        <article id="bit66">6</article>
+        <article id="bit65">5</article>
+        <article id="bit64">4</article>
+        <article id="bit63">3</article>
+        <article id="bit62">2</article>
+        <article id="bit61">1</article>
+        <article id="bit60">0</article>
+    </div>
+    <div id="byte5" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">40</span>
+        <br>
+        <article id="bit57">7</article>
+        <article id="bit56">6</article>
+        <article id="bit55">5</article>
+        <article id="bit54">4</article>
+        <article id="bit53">3</article>
+        <article id="bit52">2</article>
+        <article id="bit51">1</article>
+        <article id="bit50">0</article>
+    </div>
+    <div id="byte4" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">32</span>
+        <br>
+        <article id="bit47">7</article>
+        <article id="bit46">6</article>
+        <article id="bit45">5</article>
+        <article id="bit44">4</article>
+        <article id="bit43">3</article>
+        <article id="bit42">2</article>
+        <article id="bit41">1</article>
+        <article id="bit40">0</article>
+    </div>
+    <div id="byte3" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">24</span>
+        <br>
+        <article id="bit37">7</article>
+        <article id="bit36">6</article>
+        <article id="bit35">5</article>
+        <article id="bit34">4</article>
+        <article id="bit33">3</article>
+        <article id="bit32">2</article>
+        <article id="bit31">1</article>
+        <article id="bit30">0</article>
+    </div>
+    <div id="byte2" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">16</span>
+        <br>
+        <article id="bit27">7</article>
+        <article id="bit26">6</article>
+        <article id="bit25">5</article>
+        <article id="bit24">4</article>
+        <article id="bit23">3</article>
+        <article id="bit22">2</article>
+        <article id="bit21">1</article>
+        <article id="bit20">0</article>
+    </div>
+    <div id="byte1" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">8</span>
+        <br>
+        <article id="bit17">7</article>
+        <article id="bit16">6</article>
+        <article id="bit15">5</article>
+        <article id="bit14">4</article>
+        <article id="bit13">3</article>
+        <article id="bit12">2</article>
+        <article id="bit11">1</article>
+        <article id="bit10">0</article>
+    </div>
+    <div id="byte0" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">0</span>
+        <br>
+        <article id="bit07">7</article>
+        <article id="bit06">6</article>
+        <article id="bit05">5</article>
+        <article id="bit04">4</article>
+        <article id="bit03">3</article>
+        <article id="bit02">2</article>
+        <article id="bit01">1</article>
+        <article id="bit00">0</article>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <h2 style=";font-family:monospace;">Hexidecimal:</h2>
+    <div id="byte7h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">14</span>
+        <br>
+        <article id="hex71">1</article>
+        <article id="hex70">0</article>
+    </div>
+    <div id="byte6h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">12</span>
+        <br>
+        <article id="hex61">1</article>
+        <article id="hex60">0</article>
+    </div>
+    <div id="byte5h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">10</span>
+        <br>
+        <article id="hex51">1</article>
+        <article id="hex50">0</article>
+    </div>
+    <div id="byte4h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">8</span>
+        <br>
+        <article id="hex41">1</article>
+        <article id="hex40">0</article>
+    </div>
+    <div id="byte3h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">6</span>
+        <br>
+        <article id="hex31">1</article>
+        <article id="hex30">0</article>
+    </div>
+    <div id="byte2h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">4</span>
+        <br>
+        <article id="hex21">1</article>
+        <article id="hex20">0</article>
+    </div>
+    <div id="byte1h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">2</span>
+        <br>
+        <article id="hex11">1</article>
+        <article id="hex10">0</article>
+    </div>
+    <div id="byte0h" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">0</span>
+        <br>
+        <article id="hex01">1</article>
+        <article id="hex00">0</article>
+    </div>
+
+</div>
+
+<p id="sbp"></p>
+<p id="ubp"></p>
+<p id="stringp"></p>
+
+</body>
+
+</html>
