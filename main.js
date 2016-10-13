@@ -116,22 +116,27 @@ function float(){
     if (Math.random() < .7) {
         value = 1;
         bin = "0"
+        document.getElementById("sValue1").innerHTML = "0";
     }
     else {
         value = -1;
         bin = "1"
+        document.getElementById("sValue1").innerHTML = "1";
     }
-    document.getElementById("sValue1").innerHTML = value;
+    document.getElementById("equ1").innerHTML = "";
+    document.getElementById("equ1").innerHTML = value + " * ";
 
     var exp = Math.floor(Math.random() * 256);
-    document.getElementById("eValue1").innerHTML = "2^"+(exp-127);
+    document.getElementById("eValue1").innerHTML = ""+exp;
+    document.getElementById("equ1").innerHTML += Math.pow(2,(exp - 127)) + " * ";
     var tb = ubBin(exp);
     for (var i = tb.length; i < 8; i++){
         tb = "0" + tb;
     }
     bin = bin + tb;
     var sig = Math.floor(Math.random() * Math.pow(2, 23));
-    document.getElementById("mValue1").innerHTML = "1."+sig;
+    document.getElementById("mValue1").innerHTML = sig;
+    document.getElementById("equ1").innerHTML += "1." + sig;
     tb = ubBin(sig);
     for (var i = tb.length; i < 23; i++){
         tb = "0" + tb;
@@ -159,22 +164,27 @@ function double(){
     if (Math.random() < .7) {
         value = 1;
         bin = "0";
+        document.getElementById("sValue2").innerHTML = "0";
     }
     else {
         value = -1;
         bin = "1";
+        document.getElementById("sValue2").innerHTML = "1";
     }
-    document.getElementById("sValue2").innerHTML = value;
+    document.getElementById("equ2").innerHTML = "";
+    document.getElementById("equ2").innerHTML = value + " * ";
 
     var exp = Math.floor(Math.random() * Math.pow(2,12));
-    document.getElementById("eValue2").innerHTML = "2^"+(exp-1023);
+    document.getElementById("equ2").innerHTML += Math.pow(2, (exp - 1023)) + " * ";
+    document.getElementById("eValue2").innerHTML = exp;
 	var tb = ubBin(exp);
     for (var i = tb.length; i < 11; i++) {
         tb = "0" + tb;
     }
     bin = bin + tb;
     var sig = Math.floor(Math.random() * Math.pow(2, 52));
-    document.getElementById("mValue2").innerHTML = "1." + sig;
+    document.getElementById("mValue2").innerHTML = sig;
+    document.getElementById("equ2").innerHTML += "1." + sig;
     tb = ubBin(sig);
     for (var i = tb.length; i < 52; i++) {
         tb = "0" + tb;
@@ -207,6 +217,7 @@ function unClick(){
 	document.getElementById("main").style.visibility = "visible";
 	document.getElementById("mantissa1").style.display = "none";
 	document.getElementById("mantissa2").style.display = "none";
+	document.getElementById("temp").style.visibility = "hidden";
 }
 
 function ubBin(n){
