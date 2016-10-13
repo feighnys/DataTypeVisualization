@@ -8,7 +8,8 @@ function changeP(){
     document.getElementById("info").innerHTML = "";
 
 	if(type == "ub"){
-	    if (value.match("^[0123456789]+$")) {
+	    if (value.match("^\\+?\\d+$")) {
+	        value = "" + parseInt(value);
 		    if(value.valueOf() > 255){
 		        document.getElementById("info").innerHTML = "Value too high, rolling over";
 		        value = ""+(value.valueOf() % 256);
@@ -22,7 +23,8 @@ function changeP(){
 		}
 	}
 	else if(type == "sb"){
-	    if(value.match("^-?[0123456789]+$")) {
+	    if (value.match("^(-|\\+)?\\d+$")) {
+	        value = ""+parseInt(value);
 	        if(value.valueOf() > 127){
 	            document.getElementById("info").innerHTML = "Value too high, rolling over";
 	            value = "" + ((value.valueOf() % 256));
@@ -42,7 +44,109 @@ function changeP(){
 	    }
 	}
 	else if (type == "boolean") {
+	    if(value.match("^(((T|t)(R|r)(U|u))|((F|f)(A|a)(L|l)(S|s)))(E|e)$")){
+	        document.getElementById("value").innerHTML = value;
+	        if (value.match("^(T|t)(R|r)(U|u)(E|e)$")) {
+	            bin = "1";
+	            value = "True";
+	        }
+	        else{
+	            bin = "0";
+	            value = "False";
+	        }
+	        document.getElementById("value").innerHTML = value;
+	        showBytes(1, bin);
+	    }
+	    else {
+	        document.getElementById("info").innerHTML = "Invalid Value"
+	    }
+	}
+	else if (type == "f"){
+	    if (value.match("^(-|\\+)?([0123456789]*\.?[0123456789]+)((E|e)(-|\\+)?[0123456789]+)?$")) {
+	        var f = parseFloat(value);
+	        document.getElementById("value").innerHTML = f;
+	        var sign;
+	        if (f >= 0) { sign = "0" }
+	        else { sign = "1" }
+	        f = Math.abs(f);
+	        var exp = 0;
+	        var man = 0;
+	        for (exp = 0; exp < 256; exp++) {
+	            man = f / Math.pow(2, exp - 127);
+	            if (man > 1 & man < 2) { break;}
+	        }
+	        man = ("" + man).substring(2);
+	        if (man.length > 7) { man = ""+Math.round((man.substring(0, 7)+"."+man.substring(7)).valueOf()); }
+	        if (man.valueOf() >= Math.pow(2, 23)) { man = "" + Math.round((man.substring(0, 6) + "." + man.substring(6)).valueOf()); }
+	        bin = sign;
+            var tb = ubBin(exp);
+            for (var i = tb.length; i < 8; i++) {
+                tb = "0" + tb;
+            }
+            bin = bin + tb;
+            var tb = ubBin(man.valueOf());
+            for (var i = tb.length; i < 23; i++) {
+                tb = "0" + tb;
+            }
+            bin = bin + tb;
 
+            showBytes(4, bin);
+	        document.getElementById("sValue1").innerHTML = sign;
+	        document.getElementById("eValue1").innerHTML = exp;
+	        document.getElementById("mValue1").innerHTML = man;
+	        document.getElementById("equ1").innerHTML = Math.pow(-1,sign.valueOf())+" * "+Math.pow(2,exp-127)+" * 1."+man;
+	    }
+	    else {
+	        document.getElementById("info").innerHTML = "Invalid Value";
+	    }
+	}
+	else if (type == "d") {
+	    if (value.match("^(-|\\+)?([0123456789]*\.?[0123456789]+)((E|e)(-|\\+)?[0123456789]+)?$")) {
+	        var d = parseFloat(value);
+	        document.getElementById("value").innerHTML = d;
+	        var sign;
+	        if (d >= 0) { sign = "0" }
+	        else { sign = "1" }
+	        d = Math.abs(d);
+	        var exp = 0;
+	        var man = 0;
+	        for (exp = 0; exp < 2048; exp++) {
+	            man = d / Math.pow(2, exp - 1023);
+	            if (man > 1 & man < 2) { break; }
+	        }
+	        man = ("" + man).substring(2);
+	        if (man.length > 16) { man = ""+Math.round((man.substring(0, 16)+"."+man.substring(16)).valueOf()); }
+	        if (man.valueOf() >= Math.pow(2, 52)) { man = "" + Math.round((man.substring(0, 15) + "." + man.substring(15)).valueOf()); }
+	        bin = sign;
+	        var tb = ubBin(exp);
+	        for (var i = tb.length; i < 11; i++) {
+	            tb = "0" + tb;
+	        }
+	        bin = bin + tb;
+	        var tb = ubBin(man.valueOf());
+	        for (var i = tb.length; i < 52; i++) {
+	            tb = "0" + tb;
+	        }
+	        bin = bin + tb;
+
+	        showBytes(8, bin);
+	        document.getElementById("sValue2").innerHTML = sign;
+	        document.getElementById("eValue2").innerHTML = exp;
+	        document.getElementById("mValue2").innerHTML = man;
+	        document.getElementById("equ2").innerHTML = Math.pow(-1, sign.valueOf()) + " * " + Math.pow(2, exp - 1023) + " * 1." + man;
+	    }
+	    else {
+	        document.getElementById("info").innerHTML = "Invalid Value";
+	    }
+	}
+	else if (type == "string") {
+	    if (value.length <= 7) {
+	        document.getElementById("value").innerHTML = value;
+	        showBytes(value.length + 1, sBin(value) + "00000000");
+	    }
+	    else {
+	        document.getElementById("info").innerHTML = "Please use a shorter string (7 characters or less)";
+	    }
 	}
 
 	else {
