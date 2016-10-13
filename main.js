@@ -67,7 +67,7 @@ function changeP(){
 	        if (f > Math.pow(2, 128) * 1.999999) {
 	            document.getElementById("info").innerHTML = "Value too large to represent";
 	        }
-	        else if (f < Math.pow(2, -127)) {
+	        else if (f < -Math.pow(2, 128) * 1.999999) {
 	            document.getElementById("info").innerHTML = "Value too small to represent";
 	        }
 	        else {
@@ -115,7 +115,7 @@ function changeP(){
 	        if (f > Math.pow(2, 1024) * 1.9999999999999999) {
 	            document.getElementById("info").innerHTML = "Value too large to represent";
 	        }
-	        else if (f < Math.pow(2, -1023)) {
+	        else if (f < -Math.pow(2, 1024) * 1.9999999999999999) {
 	            document.getElementById("info").innerHTML = "Value too small to represent";
 	        }
 	        else {
