@@ -96,11 +96,18 @@ function changeP(){
 	                tb = "0" + tb;
 	            }
 	            bin = bin + tb;
+	            if (man.length == 0) {
+	                man = "0";
+	            }
 
 	            showBytes(4, bin);
 	            document.getElementById("sValue1").innerHTML = sign;
 	            document.getElementById("eValue1").innerHTML = exp;
 	            document.getElementById("mValue1").innerHTML = man;
+	            document.getElementById("sign1").innerHTML = bin.charAt(0);
+	            document.getElementById("exp1").innerHTML = (exp - 127);
+	            document.getElementById("manE1").innerHTML = man;
+	            document.getElementById("ans1").innerHTML = Math.pow(-1, sign.valueOf()) * Math.pow(2, exp - 127) * parseFloat("1." + man);
 	            document.getElementById("equ1").innerHTML = Math.pow(-1, sign.valueOf()) + " * " + Math.pow(2, exp - 127) + " * 1." + man;
 
 	        }
@@ -143,12 +150,20 @@ function changeP(){
 	            for (var i = tb.length; i < 52; i++) {
 	                tb = "0" + tb;
 	            }
+	            if (man.length == 0) {
+	                man = "0";
+	            }
 	            bin = bin + tb;
+
 
 	            showBytes(8, bin);
 	            document.getElementById("sValue2").innerHTML = sign;
 	            document.getElementById("eValue2").innerHTML = exp;
 	            document.getElementById("mValue2").innerHTML = man;
+	            document.getElementById("sign2").innerHTML = bin.charAt(0);
+	            document.getElementById("exp2").innerHTML = (exp - 1023);
+	            document.getElementById("manE2").innerHTML = man;
+	            document.getElementById("ans2").innerHTML = Math.pow(-1, sign.valueOf()) * Math.pow(2, exp - 1023) * parseFloat("1." + man);
 	            document.getElementById("equ2").innerHTML = Math.pow(-1, sign.valueOf()) + " * " + Math.pow(2, exp - 1023) + " * 1." + man;
 	        }
 	    }
@@ -237,17 +252,20 @@ function float(){
     if (Math.random() < .7) {
         value = 1;
         bin = "0"
-        document.getElementById("sValue1").innerHTML = "0";
     }
     else {
         value = -1;
         bin = "1"
-        document.getElementById("sValue1").innerHTML = "1";
     }
+
+    document.getElementById("sign1").innerHTML = bin.charAt(0);
+    document.getElementById("sValue1").innerHTML = bin.charAt(0);
+
     document.getElementById("equ1").innerHTML = "";
     document.getElementById("equ1").innerHTML = value + " * ";
 
     var exp = Math.floor(Math.random() * 256);
+    document.getElementById("exp1").innerHTML = (exp-127);
     document.getElementById("eValue1").innerHTML = ""+exp;
     document.getElementById("equ1").innerHTML += Math.pow(2,(exp - 127)) + " * ";
     var tb = ubBin(exp);
@@ -257,6 +275,7 @@ function float(){
     bin = bin + tb;
     var sig = Math.floor(Math.random() * Math.pow(2, 23));
     document.getElementById("mValue1").innerHTML = sig;
+    document.getElementById("manE1").innerHTML = sig;
     document.getElementById("equ1").innerHTML += "1." + sig;
     tb = ubBin(sig);
     for (var i = tb.length; i < 23; i++){
@@ -271,10 +290,15 @@ function float(){
         value = value + ".0";
     }
 
+    document.getElementById("ans1").innerHTML = value;
     document.getElementById('value').innerHTML = value;
     document.getElementById('type').innerHTML = "Single Precision Floating Point Decimal";
     type = "f";
     showBytes(4, bin);
+
+}
+
+function randomDouble() {
 
 }
 
@@ -285,18 +309,20 @@ function double(){
     if (Math.random() < .7) {
         value = 1;
         bin = "0";
-        document.getElementById("sValue2").innerHTML = "0";
     }
     else {
         value = -1;
         bin = "1";
-        document.getElementById("sValue2").innerHTML = "1";
     }
+    document.getElementById("sign2").innerHTML = bin.charAt(0);
+    document.getElementById("sValue2").innerHTML = bin.charAt(0);
+
     document.getElementById("equ2").innerHTML = "";
     document.getElementById("equ2").innerHTML = value + " * ";
 
     var exp = Math.floor(Math.random() * Math.pow(2,12));
     document.getElementById("equ2").innerHTML += Math.pow(2, (exp - 1023)) + " * ";
+    document.getElementById("exp2").innerHTML = (exp-1023);
     document.getElementById("eValue2").innerHTML = exp;
 	var tb = ubBin(exp);
     for (var i = tb.length; i < 11; i++) {
@@ -305,6 +331,7 @@ function double(){
     bin = bin + tb;
     var sig = Math.floor(Math.random() * Math.pow(2, 52));
     document.getElementById("mValue2").innerHTML = sig;
+    document.getElementById("manE2").innerHTML = sig;
     document.getElementById("equ2").innerHTML += "1." + sig;
     tb = ubBin(sig);
     for (var i = tb.length; i < 52; i++) {
@@ -320,6 +347,7 @@ function double(){
         value = value + ".0";
     }
 
+    document.getElementById("ans2").innerHTML = value;
     document.getElementById('value').innerHTML = value;
     document.getElementById('type').innerHTML = "Double Precision Floating Point Decimal";
     type = "d";
@@ -378,7 +406,7 @@ function showBytes(b, str) {
     if (type == "d") { man2(str) }
 
     var i = 0;
-	showHex(b, str);
+	//showHex(b, str);
     //hide all bytes
     for (i = 0; i < 8; i++){
         document.getElementById("byte" + i).style.visibility = "hidden";
@@ -441,4 +469,8 @@ function showHex(b, binStr){
 			document.getElementById("bit"+Math.floor(i/2)+i%2).innerHTML = "0";
 		}
 	}
+}
+
+function toggle(bit){
+
 }
