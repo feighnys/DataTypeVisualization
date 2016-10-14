@@ -80,7 +80,7 @@ function changeP(){
 	            var man = 0;
 	            for (exp = 0; exp < 256; exp++) {
 	                man = f / Math.pow(2, exp - 127);
-	                if (man > 1 & man < 2) { break; }
+	                if (man >= 1 & man < 2) { break; }
 	            }
 	            man = ("" + man).substring(2);
 	            if (man.length > 7) { man = "" + Math.round((man.substring(0, 7) + "." + man.substring(7)).valueOf()); }
@@ -128,7 +128,7 @@ function changeP(){
 	            var man = 0;
 	            for (exp = 0; exp < 2048; exp++) {
 	                man = d / Math.pow(2, exp - 1023);
-	                if (man > 1 & man < 2) { break; }
+	                if (man >= 1 & man < 2) { break; }
 	            }
 	            man = ("" + man).substring(2);
 	            if (man.length > 16) { man = "" + Math.round((man.substring(0, 16) + "." + man.substring(16)).valueOf()); }
