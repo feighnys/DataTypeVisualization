@@ -1,10 +1,23 @@
 var value = "";
 var bin = "";
 var type = "";
+var sig = "";
+var exp = "";
+
+function clear() {
+    document.getElementById("input").value = "";
+}
+
+function random() {
+    clear();
+    if (type == "d") {
+        randomDouble(true);
+    }
+}
 
 function changeP(){
     value = document.getElementById("input").value;
-    document.getElementById("input").value = "";
+    //document.getElementById("input").value = "";
     document.getElementById("info").innerHTML = "";
 
 	if(type == "ub"){
@@ -14,7 +27,7 @@ function changeP(){
 		        document.getElementById("info").innerHTML = "Value too high, rolling over";
 		        value = ""+(value.valueOf() % 256);
 		    }
-		    document.getElementById("value").innerHTML = value;
+		    document.getElementById("input").value = value;
 		    bin = ubBin(value.valueOf());
 		    showBytes(1, bin);
 		}
@@ -35,7 +48,7 @@ function changeP(){
 	            value = "" + ((value.valueOf() % 256));
 	            if(value.valueOf() < -128){value = "" + (value.valueOf() - -256);}
 	        }
-	        document.getElementById("value").innerHTML = value;
+	        document.getElementById("input").value = value;
 	        bin = ubBin((value.valueOf() + 256) % 256);
 	        showBytes(1, bin);
 	    }
@@ -45,7 +58,7 @@ function changeP(){
 	}
 	else if (type == "boolean") {
 	    if(value.match("^(((T|t)(R|r)(U|u))|((F|f)(A|a)(L|l)(S|s)))(E|e)$")){
-	        document.getElementById("value").innerHTML = value;
+	        document.getElementById("input").value = value;
 	        if (value.match("^(T|t)(R|r)(U|u)(E|e)$")) {
 	            bin = "1";
 	            value = "True";
@@ -54,7 +67,7 @@ function changeP(){
 	            bin = "0";
 	            value = "False";
 	        }
-	        document.getElementById("value").innerHTML = value;
+	        document.getElementById("input").value = value;
 	        showBytes(1, bin);
 	    }
 	    else {
@@ -71,7 +84,7 @@ function changeP(){
 	            document.getElementById("info").innerHTML = "Value too small to represent";
 	        }
 	        else {
-	            document.getElementById("value").innerHTML = f;
+	            document.getElementById("input").value = f;
 	            var sign;
 	            if (f >= 0) { sign = "0" }
 	            else { sign = "1" }
@@ -117,63 +130,11 @@ function changeP(){
 	    }
 	}
 	else if (type == "d") {
-	    if (value.match("^(-|\\+)?([0123456789]*\.?[0123456789]+)((E|e)(-|\\+)?[0123456789]+)?$")) {
-	        var d = parseFloat(value);
-	        if (f > Math.pow(2, 1024) * 1.9999999999999999) {
-	            document.getElementById("info").innerHTML = "Value too large to represent";
-	        }
-	        else if (f < -Math.pow(2, 1024) * 1.9999999999999999) {
-	            document.getElementById("info").innerHTML = "Value too small to represent";
-	        }
-	        else {
-	            document.getElementById("value").innerHTML = d;
-	            var sign;
-	            if (d >= 0) { sign = "0" }
-	            else { sign = "1" }
-	            d = Math.abs(d);
-	            var exp = 0;
-	            var man = 0;
-	            for (exp = 0; exp < 2048; exp++) {
-	                man = d / Math.pow(2, exp - 1023);
-	                if (man >= 1 & man < 2) { break; }
-	            }
-	            man = ("" + man).substring(2);
-	            if (man.length > 16) { man = "" + Math.round((man.substring(0, 16) + "." + man.substring(16)).valueOf()); }
-	            if (man.valueOf() >= Math.pow(2, 52)) { man = "" + Math.round((man.substring(0, 15) + "." + man.substring(15)).valueOf()); }
-	            bin = sign;
-	            var tb = ubBin(exp);
-	            for (var i = tb.length; i < 11; i++) {
-	                tb = "0" + tb;
-	            }
-	            bin = bin + tb;
-	            var tb = ubBin(man.valueOf());
-	            for (var i = tb.length; i < 52; i++) {
-	                tb = "0" + tb;
-	            }
-	            if (man.length == 0) {
-	                man = "0";
-	            }
-	            bin = bin + tb;
-
-
-	            showBytes(8, bin);
-	            document.getElementById("sValue2").innerHTML = sign;
-	            document.getElementById("eValue2").innerHTML = exp;
-	            document.getElementById("mValue2").innerHTML = man;
-	            document.getElementById("sign2").innerHTML = bin.charAt(0);
-	            document.getElementById("exp2").innerHTML = (exp - 1023);
-	            document.getElementById("manE2").innerHTML = man;
-	            document.getElementById("ans2").innerHTML = Math.pow(-1, sign.valueOf()) * Math.pow(2, exp - 1023) * parseFloat("1." + man);
-	            document.getElementById("equ2").innerHTML = Math.pow(-1, sign.valueOf()) + " * " + Math.pow(2, exp - 1023) + " * 1." + man;
-	        }
-	    }
-	    else {
-	        document.getElementById("info").innerHTML = "Invalid Value";
-	    }
+	        customDouble(value);
 	}
 	else if (type == "string") {
 	    if (value.length <= 7) {
-	        document.getElementById("value").innerHTML = value;
+	        document.getElementById("input").value = value;
 	        showBytes(value.length + 1, sBin(value) + "00000000");
 	    }
 	    else {
@@ -182,16 +143,18 @@ function changeP(){
 	}
 
 	else {
-	    document.getElementById('value').innerHTML = value;
+	    document.getElementById("input").value = value;
 	}
 
 }
+
+
 function signedByte(){
 	unClick()
 	document.getElementById("sb").style.borderWidth = "5";
 	
 	value = ""+(Math.floor(Math.random()*256) - 128);
-	document.getElementById('value').innerHTML = value;
+	document.getElementById("input").value = value;
 	if(value.valueOf() < 0){
 	bin = ubBin(256+parseInt(value));
 	}
@@ -208,7 +171,7 @@ function unsignedByte(){
 	document.getElementById("ub").style.borderWidth = "5";
 	
 	value = ""+Math.floor(Math.random()*256);
-	document.getElementById('value').innerHTML = value;
+	document.getElementById("input").value = value;
 	bin = ubBin(value.valueOf());
 	document.getElementById('type').innerHTML = "Unsigned Byte Integer";
 	type = "ub";
@@ -221,7 +184,7 @@ function string(){
 	
 	var strings = ["ABcd","Hello","1234","abc123"];
 	value = strings[Math.floor(Math.random()*strings.length)];
-	document.getElementById('value').innerHTML = value;//"\""+value+"\"";
+	document.getElementById("input").value = value;//"\""+value+"\"";
 	bin = sBin(value) + "00000000";
 	document.getElementById('type').innerHTML = "String";
 	type = "string";
@@ -233,16 +196,16 @@ function boolean(){
 	document.getElementById("boolean").style.borderWidth = "5";
 	
 	if(Math.random() < 0.5){
-		document.getElementById('value').innerHTML = "False";
+		document.getElementById("input").value = "False";
 		bin = "0";
 	}
 	else{
-		document.getElementById('value').innerHTML = "True";
+		document.getElementById("input").value = "True";
 		bin = "1";
 	}
 	document.getElementById("type").innerHTML = "Boolean";
 	type="boolean";
-	showBytes(1,bin);
+	showBytes(0,bin);
 }
 
 function float(){
@@ -291,70 +254,195 @@ function float(){
     }
 
     document.getElementById("ans1").innerHTML = value;
-    document.getElementById('value').innerHTML = value;
+    document.getElementById("input").value = value;
     document.getElementById('type').innerHTML = "Single Precision Floating Point Decimal";
     type = "f";
     showBytes(4, bin);
 
 }
 
-function randomDouble() {
+function customDouble(d) {
+    var orVal = document.getElementById("input").value;
+    document.getElementById("input").value = d;
 
+    if (value.match("^(-|\\+)?([0123456789]*\.?[0123456789]+)((E|e)(-|\\+)?[0123456789]+)?$")) {
+        d = parseFloat(d);
+        if (d > Math.pow(2, 1024) * 1.9999999999999999) {
+            d = "Infinity"
+            //document.getElementById("info").innerHTML = "Value too large to represent";
+        }
+        if (d < -Math.pow(2, 1024) * 1.9999999999999999) {
+            d = "-Infinity";
+            //document.getElementById("info").innerHTML = "Value too small to represent";
+        }
+    }
+    d = "" + d;
+        if (d == "0" || d == "+0"){
+            bin = "0";
+            exp = 0;
+            sig = 0;
+        }
+        else if (d == "-0") {
+            bin = "1";
+            exp = 0;
+            sig = 0;
+        }
+        else if (d == "Infinity" || d == "infinity" || d == "Inf" || d == "inf" || d == "+Infinity" || d == "+infinity" || d == "+Inf" || d == "+inf") {
+            bin = "0";
+            exp = 2047;
+            sig = 0;
+        }
+        else if (d == "-Infinity" || d == "-infinity" || d == "-Inf" || d == "-inf") {
+            bin = "1";
+            exp = 2047;
+            sig = 0;
+        }
+        else if (value.match("^(-|\\+)?([0123456789]*\.?[0123456789]+)((E|e)(-|\\+)?[0123456789]+)?$")) {
+            var sign;
+            if (d >= 0) { bin = "0" }
+            else { bin = "1" }
+            d = Math.abs(d);
+            exp = 0;
+            var man = 0;
+            for (exp = 0; exp < 2048; exp++) {
+                man = d / Math.pow(2, exp - 1023);
+                if (man >= 1 & man < 2) { break; }
+            }
+            man = ("" + man).substring(2);
+            if (man.length > 16) { man = "" + Math.round((man.substring(0, 16) + "." + man.substring(16)).valueOf()); }
+            if (man.valueOf() >= Math.pow(2, 52)) { man = "" + Math.round((man.substring(0, 15) + "." + man.substring(15)).valueOf()); }
+            if (man.length == 0) { man = 0; }
+            sig = man;
+            //double();
+        }
+        else {
+            document.getElementById("info").innerHTML = "Invalid Value";
+            document.getElementById("input").innerHTM = orVal;
+        }
+        if (document.getElementById("info").innerHTML != "Invalid Value") {
+            double();
+        }
+        
 }
 
-function double(){
-	unClick()
-	document.getElementById("double").style.borderWidth = "5";
-    value = 0;
-    if (Math.random() < .7) {
-        value = 1;
-        bin = "0";
-    }
-    else {
-        value = -1;
-        bin = "1";
-    }
-    document.getElementById("sign2").innerHTML = bin.charAt(0);
-    document.getElementById("sValue2").innerHTML = bin.charAt(0);
+function randomDouble(bool) {
+    if (type != "d" || bool) {
+        unClick()
+        document.getElementById("double").style.borderWidth = "5";
+        document.getElementById("input").value = " ";
+        document.getElementById("mantissa2").style.display = "block";
 
-    document.getElementById("equ2").innerHTML = "";
-    document.getElementById("equ2").innerHTML = value + " * ";
+        value = 0;
+        if (Math.random() < .7) {
+            value = 1;
+            bin = "0";
+        }
+        else {
+            value = -1;
+            bin = "1";
+        }
+        exp = Math.floor(Math.random() * Math.pow(2, 11));
+        sig = Math.floor(Math.random() * Math.pow(2, 52));
 
-    var exp = Math.floor(Math.random() * Math.pow(2,12));
-    document.getElementById("equ2").innerHTML += Math.pow(2, (exp - 1023)) + " * ";
-    document.getElementById("exp2").innerHTML = (exp-1023);
-    document.getElementById("eValue2").innerHTML = exp;
-	var tb = ubBin(exp);
+        double();
+    }
+}
+function binaryDouble() {
+    exp = parseInt(bin.substring(1, 12), 2);
+    sig = parseInt(bin.substring(12), 2);
+    bin = bin.charAt(0);
+    double();
+}
+
+function double() {
+
+    document.getElementById("equ2").innerHTML = Math.pow(-1, bin.charAt(0).valueOf()) + " * ";
+
+    value = Math.pow(-1,bin.charAt(0).valueOf()) + "." + sig;
+    value = value.valueOf() * Math.pow(2, exp - 1023);
+    value = value + "";
+    //if (value.indexOf("Inf") != -1) { double();}
+    if (value.indexOf(".") == -1 && value.indexOf("f") == -1) {
+        value = value + ".0";
+    }
+
+    var tb = ubBin(exp);
     for (var i = tb.length; i < 11; i++) {
         tb = "0" + tb;
     }
     bin = bin + tb;
-    var sig = Math.floor(Math.random() * Math.pow(2, 52));
-    document.getElementById("mValue2").innerHTML = sig;
-    document.getElementById("manE2").innerHTML = sig;
-    document.getElementById("equ2").innerHTML += "1." + sig;
+
     tb = ubBin(sig);
     for (var i = tb.length; i < 52; i++) {
         tb = "0" + tb;
     }
     bin = bin + tb;
-    value = value + "." + sig;
-    value = value.valueOf() * Math.pow(2, exp - 1023);
-    //value = (value + (sig * Math.pow(10, -52))) * Math.pow(2, exp - 1023);
-    value = value + "";
-    if (value.indexOf("Inf") != -1) { double();}
-    if (value.indexOf(".") == -1) {
-        value = value + ".0";
-    }
+
+    document.getElementById("sign2").innerHTML = bin.charAt(0);
+    document.getElementById("sValue2").innerHTML = bin.charAt(0) + "<sub>10</sub>";
+    document.getElementById("binSign2").innerHTML = bin.substring(0,1);
+
+    document.getElementById("equ2").innerHTML += Math.pow(2, (exp - 1023)) + " * ";
+    document.getElementById("exp2").innerHTML = (exp - 1023);
+    document.getElementById("eValue2").innerHTML = exp+"<sub>10</sub>";
+    document.getElementById("binExp2").innerHTML = bin.substring(1, 12);
+
+    document.getElementById("mValue2").innerHTML = sig + "<sub>10</sub>";
+    document.getElementById("manE2").innerHTML = sig;
+    document.getElementById("equ2").innerHTML += "1." + sig;
+    document.getElementById("binMan2").innerHTML = bin.substring(12);
 
     document.getElementById("ans2").innerHTML = value;
-    document.getElementById('value').innerHTML = value;
+    if(document.getElementById("input").value == " "){
+        document.getElementById("input").value = value;
+    }
     document.getElementById('type').innerHTML = "Double Precision Floating Point Decimal";
+
+    //special cases
+    if (bin == "0000000000000000000000000000000000000000000000000000000000000000") {
+        document.getElementById("ans2").innerHTML = "0";
+        value = "0";
+        document.getElementById("equ2").innerHTML = "Special Case"
+    }
+    if (bin == "1000000000000000000000000000000000000000000000000000000000000000") {
+        document.getElementById("ans2").innerHTML = "-0";
+        value = "-0";
+        document.getElementById("equ2").innerHTML = "Special Case"
+    }
+    if (bin.substring(0,12) == "011111111111") {
+        if(bin.substring(12) == "0000000000000000000000000000000000000000000000000000"){
+            document.getElementById("ans2").innerHTML = "Infinity";
+            value = "Infinity";
+        }
+        else{
+            document.getElementById("ans2").innerHTML = "NaN";
+            value = "NaN";
+        }
+        document.getElementById("equ2").innerHTML = "Special Case";
+    }
+    if (bin.substring(0,12) == "111111111111") {
+        if(bin.substring(12) == "0000000000000000000000000000000000000000000000000000"){
+            document.getElementById("ans2").innerHTML = "-Infinity";
+            value = "-Infinity";
+        }
+        else{
+            document.getElementById("ans2").innerHTML = "NaN";
+            value = "NaN";
+        }
+        document.getElementById("equ2").innerHTML = "Special Case"
+    }
+
+    if (document.getElementById("input").value == " ") {
+        document.getElementById("input").value = value;
+    }
+
     type = "d";
     showBytes(8, bin);
 }
 
-function unClick(){
+function unClick() {
+    document.getElementById("info").innerHTML = "Input a custom value in the white box:";
+
 	document.getElementById("boolean").style.borderWidth = "2";
 	document.getElementById("sb").style.borderWidth = "2";
 	document.getElementById("ub").style.borderWidth = "2";
@@ -400,11 +488,11 @@ function man2(str) {
     }
 }
 
-function showBytes(b, str) {
+function showBytes(b, str){
 
     if (type == "f") { man1(str); }
-    if (type == "d") { man2(str) }
-
+    //if (type == "d") { man2(str) }
+    
     var i = 0;
 	//showHex(b, str);
     //hide all bytes
@@ -412,6 +500,8 @@ function showBytes(b, str) {
         document.getElementById("byte" + i).style.visibility = "hidden";
         document.getElementById("byte"+i).style.float = "right";
     }
+    document.getElementById("bytebool").style.visibility = "hidden";
+    document.getElementById("bytebool").style.float = "right";
     //shows b bytes
 	for(i = 0;i<b;i++){
 		document.getElementById("byte"+i).style.visibility = "visible";
@@ -426,6 +516,13 @@ function showBytes(b, str) {
 			document.getElementById("bit"+Math.floor(i/8)+i%8).innerHTML = "0";
 		}
 	}
+
+	if (type == "boolean") {
+	    document.getElementById("bytebool").style.visibility = "visible";
+	    document.getElementById("bytebool").style.float = "left";
+	    document.getElementById("bitbool").innerHTML = str;
+	}
+
 }
 
 function showHex(b, binStr){
@@ -469,8 +566,22 @@ function showHex(b, binStr){
 			document.getElementById("bit"+Math.floor(i/2)+i%2).innerHTML = "0";
 		}
 	}
+
+
 }
 
-function toggle(bit){
+function toggle(bit) {
+    if (bit + "" == "bool") {
+        bin = Math.abs(bin.charAt(0).valueOf() - 1)
 
+    }
+    else {
+        bit = (bin.length - 1) - bit;
+        //console.log(bin.length);
+        bin = bin.substr(0, bit) + Math.abs(bin.charAt(bit).valueOf() - 1) + bin.substring(bit + 1);
+        //console.log(bin.substr(0, bit).length);
+        if (type == "d") {
+            binaryDouble();
+        }
+    }
 }

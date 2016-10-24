@@ -4,16 +4,17 @@
 <title>Data Type Visualization</title>
 <script src="main.js"></script>
 <style>
-button{border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;line-height:32px;}
+.tab{border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;line-height:32px;}
 article{background-color:#66aa66;color:#008800;float:left;width:16px;height:26px;border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;text-align:center;}
+.bit{display:block;background-color:#66aa66;color:#008800;float:left;border:solid 2px;font-family:monospace;font-weight:bold;font-size:16pt;text-align:center;outline:none;padding:3px 2px 3px 2px;}
 table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collapse:collapse;padding:5px;}
 #mantissa1 table tr .sc{width:100px;}
 #mantissa1 table tr .ec{width:200px;}
 #mantissa1 table tr .mc{width:500px;}
 
-#mantissa2 table tr .sc{width:100px;}
-#mantissa2 table tr .ec{width:300px;}
-#mantissa2 table tr .mc{width:1100px;}
+#mantissa2 table tr .sc{width:80px;}
+#mantissa2 table tr .ec{width:200px;}
+#mantissa2 table tr .mc{width:700px;}
 .center{margin:auto;display:block;}
 </style>
 </head>
@@ -21,132 +22,137 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 <body>
 
 <header>
-    <button id="boolean" style="background-color:#228822;color:#114411;" type="button" onclick="boolean()">Boolean</button>
-    <button id="sb" type="button" style="background-color:#0044ff;color:#002288;" onclick="signedByte()">Signed Byte Integer</button>
-    <button id="ub" style="background-color:#0044ff;color:#002288;" type="button" onclick="unsignedByte()">Unsigned Byte Integer</button>
-    <button id="float" style="background-color:#ff8800;color:#884400;" type="button" onclick="float()">Float</button>
-    <button id="double" style="background-color:#ff8800;color:#884400;" type="button" onclick="double()">Double</button>
-    <button id="string" style="background-color:#ff8888;color:#884444;" type="button" onclick="string()">String</button>
+    <button class="tab" id="boolean" style="background-color:#228822;color:#114411;" type="button" onclick="boolean()">Boolean</button>
+    <button class="tab" id="sb" type="button" style="background-color:#0044ff;color:#002288;" onclick="signedByte()">Signed Byte Integer</button>
+    <button class="tab" id="ub" style="background-color:#0044ff;color:#002288;" type="button" onclick="unsignedByte()">Unsigned Byte Integer</button>
+    <button class="tab" id="float" style="background-color:#ff8800;color:#884400;" type="button" onclick="float()">Float</button>
+    <button class="tab" id="double" style="background-color:#ff8800;color:#884400;" type="button" onclick="randomDouble(false)">Double</button>
+    <button class="tab" id="string" style="background-color:#ff8888;color:#884444;" type="button" onclick="string()">String</button>
     <span id="temp"> Choose a data type!</span>
 </header>
 <br>
 <br>
 
 <div id="main" style="visibility:hidden;">
-    <p id="info" style="font-family:monospace;font-size:16px;height:16px;">Input a custom value:</p>
-    <input id="input" type="text" oninput=""></input>
-    <button id="b1" type="button" style="font-size:12pt;line-height:16px;" onclick="changeP()">Enter</button>
-    <br>
-    <br>
+    <p id="info" style="font-family:monospace;font-size:16px;height:16px;">Input a custom value in the white box:</p>
 
     <table>
         <tr>
-            <th style="width:150px;">Data Type:</th>
-            <td id="type" style="width:500px;"> </td>
+            <th style="width:150px;background-color:#dddddd;">Data Type:</th>
+            <td id="type" style="width:500px;background-color:#dddddd;"> </td>
         </tr>
         <tr>
-            <th style="width:150px;">Value:</th>
-            <td id="value" style="width:500px;"> </td>
+            <th style="width:150px;background-color:#dddddd;">Value:</th>
+            <td id="value" style="width:500px;padding-top:0px;padding-bottom:0px;">
+                <input id="input" type="text" oninput="changeP()" style="width:100%;height:100%;margin:0px;font-family:monospace;font-size:16pt;border:none;outline:none;"></input>
+            </td>
         </tr>
     </table>
 
+    <button id="b1" type="button" style="font-size:12pt;line-height:16px;margin:10px;" onclick="document.getElementById('input').value = '';">Clear</button>
+    <button id="b2" type="button" style="font-size:12pt;line-height:16px;margin:10px;" onclick="random()">Random</button>
 
-    <h2 style=";font-family:monospace;">Binary:</h2>
+    <br>
     <div id="byte7" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">56</span>
         <br>
-        <article id="bit77">7</article>
-        <article id="bit76">6</article>
-        <article id="bit75">5</article>
-        <article id="bit74">4</article>
-        <article id="bit73">3</article>
-        <article id="bit72">2</article>
-        <article id="bit71">1</article>
-        <article id="bit70">0</article>
+        <button class="bit" onclick="toggle(63)" id="bit77">7</button>
+        <button class="bit" onclick="toggle(62)" id="bit76">6</button>
+        <button class="bit" onclick="toggle(61)" id="bit75">5</button>
+        <button class="bit" onclick="toggle(60)" id="bit74">4</button>
+        <button class="bit" onclick="toggle(59)" id="bit73">3</button>
+        <button class="bit" onclick="toggle(58)" id="bit72">2</button>
+        <button class="bit" onclick="toggle(57)" id="bit71">1</button>
+        <button class="bit" onclick="toggle(56)" id="bit70">0</button>
     </div>
     <div id="byte6" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">48</span>
         <br>
-        <article id="bit67">7</article>
-        <article id="bit66">6</article>
-        <article id="bit65">5</article>
-        <article id="bit64">4</article>
-        <article id="bit63">3</article>
-        <article id="bit62">2</article>
-        <article id="bit61">1</article>
-        <article id="bit60">0</article>
+        <button class="bit" onclick="toggle(55)" id="bit67">7</button>
+        <button class="bit" onclick="toggle(54)" id="bit66">6</button>
+        <button class="bit" onclick="toggle(53)" id="bit65">5</button>
+        <button class="bit" onclick="toggle(52)" id="bit64">4</button>
+        <button class="bit" onclick="toggle(51)" id="bit63">3</button>
+        <button class="bit" onclick="toggle(50)" id="bit62">2</button>
+        <button class="bit" onclick="toggle(49)" id="bit61">1</button>
+        <button class="bit" onclick="toggle(48)" id="bit60">0</button>
     </div>
     <div id="byte5" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">40</span>
         <br>
-        <article id="bit57">7</article>
-        <article id="bit56">6</article>
-        <article id="bit55">5</article>
-        <article id="bit54">4</article>
-        <article id="bit53">3</article>
-        <article id="bit52">2</article>
-        <article id="bit51">1</article>
-        <article id="bit50">0</article>
+        <button class="bit" onclick="toggle(47)" id="bit57">7</button>
+        <button class="bit" onclick="toggle(46)" id="bit56">6</button>
+        <button class="bit" onclick="toggle(45)" id="bit55">5</button>
+        <button class="bit" onclick="toggle(44)" id="bit54">4</button>
+        <button class="bit" onclick="toggle(43)" id="bit53">3</button>
+        <button class="bit" onclick="toggle(42)" id="bit52">2</button>
+        <button class="bit" onclick="toggle(41)" id="bit51">1</button>
+        <button class="bit" onclick="toggle(40)" id="bit50">0</button>
     </div>
     <div id="byte4" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">32</span>
         <br>
-        <article id="bit47">7</article>
-        <article id="bit46">6</article>
-        <article id="bit45">5</article>
-        <article id="bit44">4</article>
-        <article id="bit43">3</article>
-        <article id="bit42">2</article>
-        <article id="bit41">1</article>
-        <article id="bit40">0</article>
+        <button class="bit" onclick="toggle(39)" id="bit47">7</button>
+        <button class="bit" onclick="toggle(38)" id="bit46">6</button>
+        <button class="bit" onclick="toggle(37)" id="bit45">5</button>
+        <button class="bit" onclick="toggle(36)" id="bit44">4</button>
+        <button class="bit" onclick="toggle(35)" id="bit43">3</button>
+        <button class="bit" onclick="toggle(34)" id="bit42">2</button>
+        <button class="bit" onclick="toggle(33)" id="bit41">1</button>
+        <button class="bit" onclick="toggle(32)" id="bit40">0</button>
     </div>
     <div id="byte3" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">24</span>
         <br>
-        <article id="bit37">7</article>
-        <article id="bit36">6</article>
-        <article id="bit35">5</article>
-        <article id="bit34">4</article>
-        <article id="bit33">3</article>
-        <article id="bit32">2</article>
-        <article id="bit31">1</article>
-        <article id="bit30">0</article>
+        <button class="bit" onclick="toggle(31)" id="bit37">7</button>
+        <button class="bit" onclick="toggle(30)" id="bit36">6</button>
+        <button class="bit" onclick="toggle(29)" id="bit35">5</button>
+        <button class="bit" onclick="toggle(28)" id="bit34">4</button>
+        <button class="bit" onclick="toggle(27)" id="bit33">3</button>
+        <button class="bit" onclick="toggle(26)" id="bit32">2</button>
+        <button class="bit" onclick="toggle(25)" id="bit31">1</button>
+        <button class="bit" onclick="toggle(24)" id="bit30">0</button>
     </div>
     <div id="byte2" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">16</span>
         <br>
-        <article id="bit27">7</article>
-        <article id="bit26">6</article>
-        <article id="bit25">5</article>
-        <article id="bit24">4</article>
-        <article id="bit23">3</article>
-        <article id="bit22">2</article>
-        <article id="bit21">1</article>
-        <article id="bit20">0</article>
+        <button class="bit" onclick="toggle(23)" id="bit27">7</button>
+        <button class="bit" onclick="toggle(22)" id="bit26">6</button>
+        <button class="bit" onclick="toggle(21)" id="bit25">5</button>
+        <button class="bit" onclick="toggle(20)" id="bit24">4</button>
+        <button class="bit" onclick="toggle(19)" id="bit23">3</button>
+        <button class="bit" onclick="toggle(18)" id="bit22">2</button>
+        <button class="bit" onclick="toggle(17)" id="bit21">1</button>
+        <button class="bit" onclick="toggle(16)" id="bit20">0</button>
     </div>
     <div id="byte1" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">8</span>
         <br>
-        <article id="bit17">7</article>
-        <article id="bit16">6</article>
-        <article id="bit15">5</article>
-        <article id="bit14">4</article>
-        <article id="bit13">3</article>
-        <article id="bit12">2</article>
-        <article id="bit11">1</article>
-        <article id="bit10">0</article>
+        <button class="bit" onclick="toggle(15)" id="bit17">7</button>
+        <button class="bit" onclick="toggle(14)" id="bit16">6</button>
+        <button class="bit" onclick="toggle(13)" id="bit15">5</button>
+        <button class="bit" onclick="toggle(12)" id="bit14">4</button>
+        <button class="bit" onclick="toggle(11)" id="bit13">3</button>
+        <button class="bit" onclick="toggle(10)" id="bit12">2</button>
+        <button class="bit" onclick="toggle(9)" id="bit11">1</button>
+        <button class="bit" onclick="toggle(8)" id="bit10">0</button>
     </div>
     <div id="byte0" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">0</span>
         <br>
-        <article id="bit07">7</article>
-        <article id="bit06">6</article>
-        <article id="bit05">5</article>
-        <article id="bit04">4</article>
-        <article id="bit03">3</article>
-        <article id="bit02">2</article>
-        <article id="bit01">1</article>
-        <article id="bit00">0</article>
+        <button class="bit" onclick="toggle(7)" id="bit07">7</button>
+        <button class="bit" onclick="toggle(6)" id="bit06">6</button>
+        <button class="bit" onclick="toggle(5)" id="bit05">5</button>
+        <button class="bit" onclick="toggle(4)" id="bit04">4</button>
+        <button class="bit" onclick="toggle(3)" id="bit03">3</button>
+        <button class="bit" onclick="toggle(2)" id="bit02">2</button>
+        <button class="bit" onclick="toggle(1)" id="bit01">1</button>
+        <button class="bit" onclick="toggle(0)" id="bit00">0</button>
+    </div>
+    <div id="bytebool" style="visibility:hidden;float:right;padding:4px">
+        <span style="float:right;">0</span>
+        <br>
+        <button class="bit" onclick="toggle('bool')" id="bitbool">0</button>
     </div>
 
     <br>
@@ -168,46 +174,46 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
             <tr>
                 <td class="sc">
                     <div class="center" style="width:20px;">
-                        <article id="bit0m">0</article>
+                        <button class="bit" onclick="toggle()" id="bit0m">0</button>
                     </div>
                 </td>
                 <td class="ec">
                     <div class="center" style="width:160px;">
-                        <article id="bit1m">0</article>
-                        <article id="bit2m">0</article>
-                        <article id="bit3m">0</article>
-                        <article id="bit4m">0</article>
-                        <article id="bit5m">0</article>
-                        <article id="bit6m">0</article>
-                        <article id="bit7m">0</article>
-                        <article id="bit8m">0</article>
+                        <button class="bit" onclick="toggle()" id="bit1m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit2m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit3m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit4m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit5m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit6m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit7m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit8m">0</button>
                     </div>
                 </td>
                 <td class="mc">
                     <div class="center" style="width:460px;">
-                        <article id="bit9m">0</article>
-                        <article id="bit10m">0</article>
-                        <article id="bit11m">0</article>
-                        <article id="bit12m">0</article>
-                        <article id="bit13m">0</article>
-                        <article id="bit14m">0</article>
-                        <article id="bit15m">0</article>
-                        <article id="bit16m">0</article>
-                        <article id="bit17m">0</article>
-                        <article id="bit18m">0</article>
-                        <article id="bit19m">0</article>
-                        <article id="bit20m">0</article>
-                        <article id="bit21m">0</article>
-                        <article id="bit22m">0</article>
-                        <article id="bit23m">0</article>
-                        <article id="bit24m">0</article>
-                        <article id="bit25m">0</article>
-                        <article id="bit26m">0</article>
-                        <article id="bit27m">0</article>
-                        <article id="bit28m">0</article>
-                        <article id="bit29m">0</article>
-                        <article id="bit30m">0</article>
-                        <article id="bit31m">0</article>
+                        <button class="bit" onclick="toggle()" id="bit9m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit10m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit11m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit12m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit13m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit14m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit15m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit16m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit17m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit18m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit19m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit20m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit21m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit22m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit23m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit24m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit25m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit26m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit27m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit28m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit29m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit30m">0</button>
+                        <button class="bit" onclick="toggle()" id="bit31m">0</button>
                     </div>
                 </td>
             </tr>
@@ -244,81 +250,14 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
                 <td class="mc">52 bits</td>
             </tr>
             <tr>
-                <td class="sc">
-                    <div class="center" style="width:20px;">
-                        <article id="bit0m2">0</article>
-                    </div>
+                <td class="sc" style="text-align:center;">
+                    <span id="binSign2">0</span><sub>2</sub>
                 </td>
-                <td class="ec">
-                    <div class="center" style="width:220px;">
-                        <article id="bit1m2">0</article>
-                        <article id="bit2m2">0</article>
-                        <article id="bit3m2">0</article>
-                        <article id="bit4m2">0</article>
-                        <article id="bit5m2">0</article>
-                        <article id="bit6m2">0</article>
-                        <article id="bit7m2">0</article>
-                        <article id="bit8m2">0</article>
-                        <article id="bit9m2">0</article>
-                        <article id="bit10m2">0</article>
-                        <article id="bit11m2">0</article>
-                    </div>
+                <td class="ec" style="text-align:center;">
+                    <span id="binExp2">0</span><sub>2</sub>
                 </td>
-                <td class="mc">
-                    <div class="center" style="width:1040px;">
-                        <article id="bit12m2">0</article>
-                        <article id="bit13m2">0</article>
-                        <article id="bit14m2">0</article>
-                        <article id="bit15m2">0</article>
-                        <article id="bit16m2">0</article>
-                        <article id="bit17m2">0</article>
-                        <article id="bit18m2">0</article>
-                        <article id="bit19m2">0</article>
-                        <article id="bit20m2">0</article>
-                        <article id="bit21m2">0</article>
-                        <article id="bit22m2">0</article>
-                        <article id="bit23m2">0</article>
-                        <article id="bit24m2">0</article>
-                        <article id="bit25m2">0</article>
-                        <article id="bit26m2">0</article>
-                        <article id="bit27m2">0</article>
-                        <article id="bit28m2">0</article>
-                        <article id="bit29m2">0</article>
-                        <article id="bit30m2">0</article>
-                        <article id="bit31m2">0</article>
-                        <article id="bit32m2">0</article>
-                        <article id="bit33m2">0</article>
-                        <article id="bit34m2">0</article>
-                        <article id="bit35m2">0</article>
-                        <article id="bit36m2">0</article>
-                        <article id="bit37m2">0</article>
-                        <article id="bit38m2">0</article>
-                        <article id="bit39m2">0</article>
-                        <article id="bit40m2">0</article>
-                        <article id="bit41m2">0</article>
-                        <article id="bit42m2">0</article>
-                        <article id="bit43m2">0</article>
-                        <article id="bit44m2">0</article>
-                        <article id="bit45m2">0</article>
-                        <article id="bit46m2">0</article>
-                        <article id="bit47m2">0</article>
-                        <article id="bit48m2">0</article>
-                        <article id="bit49m2">0</article>
-                        <article id="bit50m2">0</article>
-                        <article id="bit51m2">0</article>
-                        <article id="bit52m2">0</article>
-                        <article id="bit53m2">0</article>
-                        <article id="bit54m2">0</article>
-                        <article id="bit55m2">0</article>
-                        <article id="bit56m2">0</article>
-                        <article id="bit57m2">0</article>
-                        <article id="bit58m2">0</article>
-                        <article id="bit59m2">0</article>
-                        <article id="bit60m2">0</article>
-                        <article id="bit61m2">0</article>
-                        <article id="bit62m2">0</article>
-                        <article id="bit63m2">0</article>
-                    </div>
+                <td class="mc" style="text-align:center;">
+                    <span id="binMan2">0</span><sub>2</sub>
                 </td>
             </tr>
             <tr>
