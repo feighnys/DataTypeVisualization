@@ -362,7 +362,7 @@ function binaryFloat() {
     exp = parseInt(bin.substring(1, 9), 2);
     sig = parseInt(bin.substring(9), 2);
     bin = bin.charAt(0);
-    document.getElementById("input").value = "";
+    document.getElementById("input").value = " ";
     float();
 }
 
@@ -542,7 +542,7 @@ function binaryDouble() {
     exp = parseInt(bin.substring(1, 12), 2);
     sig = parseInt(bin.substring(12), 2);
     bin = bin.charAt(0);
-    document.getElementById("input").value = "";
+    document.getElementById("input").value = " ";
     double();
 }
 
