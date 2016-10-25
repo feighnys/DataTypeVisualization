@@ -22,19 +22,19 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 <body>
 
 <header>
-    <button class="tab" id="boolean" style="background-color:#228822;color:#114411;" type="button" onclick="boolean()">Boolean</button>
-    <button class="tab" id="sb" type="button" style="background-color:#0044ff;color:#002288;" onclick="signedByte()">Signed Byte Integer</button>
-    <button class="tab" id="ub" style="background-color:#0044ff;color:#002288;" type="button" onclick="unsignedByte()">Unsigned Byte Integer</button>
-    <button class="tab" id="float" style="background-color:#ff8800;color:#884400;" type="button" onclick="float()">Float</button>
+    <button class="tab" id="boolean" style="background-color:#228822;color:#114411;" type="button" onclick="randomBoolean(false)">Boolean</button>
+    <button class="tab" id="sb" type="button" style="background-color:#0044ff;color:#002288;" onclick="randomSignedByte(false)">Signed Byte Integer</button>
+    <button class="tab" id="ub" style="background-color:#0044ff;color:#002288;" type="button" onclick="randomUnsignedByte(false)">Unsigned Byte Integer</button>
+    <button class="tab" id="float" style="background-color:#ff8800;color:#884400;" type="button" onclick="randomFloat(false)">Float</button>
     <button class="tab" id="double" style="background-color:#ff8800;color:#884400;" type="button" onclick="randomDouble(false)">Double</button>
-    <button class="tab" id="string" style="background-color:#ff8888;color:#884444;" type="button" onclick="string()">String</button>
+    <button class="tab" id="string" style="background-color:#ff8888;color:#884444;" type="button" onclick="randomString(false)">String</button>
     <span id="temp"> Choose a data type!</span>
 </header>
 <br>
 <br>
 
 <div id="main" style="visibility:hidden;">
-    <p id="info" style="font-family:monospace;font-size:16px;height:16px;">Input a custom value in the white box:</p>
+    <p id="info" style="font-family:monospace;font-size:16px;height:16px;">Input a custom value in the white box or click to toggle the green bits</p>
 
     <table>
         <tr>
@@ -152,7 +152,7 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
     <div id="bytebool" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">0</span>
         <br>
-        <button class="bit" onclick="toggle('bool')" id="bitbool">0</button>
+        <button class="bit" onclick="toggle(-1)" id="bitbool">0</button>
     </div>
 
     <br>
@@ -172,49 +172,14 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
                 <td class="mc">23 bits</td>
             </tr>
             <tr>
-                <td class="sc">
-                    <div class="center" style="width:20px;">
-                        <button class="bit" onclick="toggle()" id="bit0m">0</button>
-                    </div>
+                <td class="sc" style="text-align:center;">
+                    <span id="binSign1">0</span><sub>2</sub>
                 </td>
-                <td class="ec">
-                    <div class="center" style="width:160px;">
-                        <button class="bit" onclick="toggle()" id="bit1m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit2m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit3m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit4m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit5m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit6m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit7m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit8m">0</button>
-                    </div>
+                <td class="ec" style="text-align:center;">
+                    <span id="binExp1">0</span><sub>2</sub>
                 </td>
-                <td class="mc">
-                    <div class="center" style="width:460px;">
-                        <button class="bit" onclick="toggle()" id="bit9m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit10m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit11m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit12m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit13m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit14m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit15m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit16m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit17m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit18m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit19m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit20m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit21m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit22m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit23m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit24m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit25m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit26m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit27m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit28m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit29m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit30m">0</button>
-                        <button class="bit" onclick="toggle()" id="bit31m">0</button>
-                    </div>
+                <td class="mc" style="text-align:center;">
+                    <span id="binMan1">0</span><sub>2</sub>
                 </td>
             </tr>
             <tr>
