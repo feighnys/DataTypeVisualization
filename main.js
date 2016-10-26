@@ -191,7 +191,7 @@ function randomString(bool) {
     if (type != "string" || bool) {
         unClick()
         document.getElementById("string").style.borderWidth = "5";
-        document.getElementById("charcodes").style.display = "block";
+        document.getElementById("charcodes").style.display = "table-row";
 
         var strings = ["ABcdEFgh", "Hello", "1234", "abcd1234"];
         value = strings[Math.floor(Math.random() * strings.length)];
@@ -678,27 +678,27 @@ function showBytes(b, str){
 
     //hide all bytes
     for (i = 0; i < 8; i++){
-        document.getElementById("byte" + i).style.visibility = "hidden";
-        document.getElementById("byte" + i).style.float = "right";
+        document.getElementById("byte" + i).style.display = "none";
+        //document.getElementById("byte" + i).style.float = "right";
 
-        document.getElementById("charcode" + i).style.visibility = "hidden";
+        document.getElementById("charcode" + i).style.display = "none";
     }
-    document.getElementById("bytebool").style.visibility = "hidden";
-    document.getElementById("bytebool").style.float = "right";
+    document.getElementById("bytebool").style.display = "none";
+    //document.getElementById("bytebool").style.float = "right";
 
     if (type == "boolean") {
-        document.getElementById("bytebool").style.visibility = "visible";
-        document.getElementById("bytebool").style.float = "left";
+        document.getElementById("bytebool").style.display = "table-cell";
+        //document.getElementById("bytebool").style.float = "left";
         document.getElementById("bitbool").innerHTML = str;
     }
     else {
         //shows b bytes
         for (i = 0; i < b; i++) {
-            document.getElementById("byte" + i).style.visibility = "visible";
-            document.getElementById("byte" + i).style.float = "left";
+            document.getElementById("byte" + i).style.display = "table-cell";
+            //document.getElementById("byte" + i).style.float = "left";
             if (type == "string") {
-                document.getElementById("charcode" + (7-i)).style.visibility = "visible";
-                document.getElementById("charcode" + (7-i)).innerHTML = parseInt(str.substring(i * 8, i * 8 + 8), 2)+"<sub>10</sub>";
+                document.getElementById("charcode" + ((b-1)-i)).style.display = "table-cell";
+                document.getElementById("charcode" + ((b-1)-i)).innerHTML = parseInt(str.substring(i * 8, i * 8 + 8), 2)+"<sub>10</sub>";
             }
         }
         //fills in bits for b bytes
