@@ -15,6 +15,9 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 #mantissa2 table tr .sc{width:80px;}
 #mantissa2 table tr .ec{width:200px;}
 #mantissa2 table tr .mc{width:700px;}
+
+#charcodes table tr td{width:154px;text-align:center;}
+
 .center{margin:auto;display:block;}
 </style>
 </head>
@@ -53,6 +56,7 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
     <button id="b2" type="button" style="font-size:12pt;line-height:16px;margin:10px;" onclick="random()">Random</button>
 
     <br>
+    <div>
     <div id="byte7" style="visibility:hidden;float:right;padding:4px">
         <span style="float:right;">56</span>
         <br>
@@ -153,6 +157,22 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
         <span style="float:right;">0</span>
         <br>
         <button class="bit" onclick="toggle(-1)" id="bitbool">0</button>
+    </div>
+        </div>
+    <br>
+    <div id="charcodes" style="display:none;">
+        <table>
+            <tr>
+                <td id="charcode7" style="visibility:hidden;"></td>
+                <td id="charcode6" style="visibility:hidden;"></td>
+                <td id="charcode5" style="visibility:hidden;"></td>
+                <td id="charcode4" style="visibility:hidden;"></td>
+                <td id="charcode3" style="visibility:hidden;"></td>
+                <td id="charcode2" style="visibility:hidden;"></td>
+                <td id="charcode1" style="visibility:hidden;"></td>
+                <td id="charcode0" style="visibility:hidden;"></td>
+            </tr>
+        </table>
     </div>
 
     <br>
@@ -304,7 +324,7 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 <br>
 
 <footer style="width:100%;position:fixed;left:0;bottom:0;background-color:#88aaff;padding:4px;border-top:solid 2px;border-color:#4466aa;">
-    <span style="font-family:monospace;font-size:16px;"><b>Copyright &copy; 2016 Jonathan White</b> v 1.0</span>
+    <span style="font-family:monospace;font-size:16px;"><b>Copyright &copy; 2016 Jonathan White</b> v 1.01</span>
 </footer>
 
 </body>

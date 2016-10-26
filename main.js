@@ -191,6 +191,7 @@ function randomString(bool) {
     if (type != "string" || bool) {
         unClick()
         document.getElementById("string").style.borderWidth = "5";
+        document.getElementById("charcodes").style.display = "block";
 
         var strings = ["ABcdEFgh", "Hello", "1234", "abcd1234"];
         value = strings[Math.floor(Math.random() * strings.length)];
@@ -643,6 +644,7 @@ function unClick() {
 	document.getElementById("float").style.borderWidth = "2";
 	document.getElementById("double").style.borderWidth = "2";
 	
+	document.getElementById("charcodes").style.display = "none";
 	document.getElementById("main").style.visibility = "visible";
 	document.getElementById("mantissa1").style.display = "none";
 	document.getElementById("mantissa2").style.display = "none";
@@ -672,11 +674,14 @@ function showBytes(b, str){
     //if (type == "d") { man2(str) }
     
     var i = 0;
-	//showHex(b, str);
+    //showHex(b, str);
+
     //hide all bytes
     for (i = 0; i < 8; i++){
         document.getElementById("byte" + i).style.visibility = "hidden";
-        document.getElementById("byte"+i).style.float = "right";
+        document.getElementById("byte" + i).style.float = "right";
+
+        document.getElementById("charcode" + i).style.visibility = "hidden";
     }
     document.getElementById("bytebool").style.visibility = "hidden";
     document.getElementById("bytebool").style.float = "right";
@@ -691,6 +696,10 @@ function showBytes(b, str){
         for (i = 0; i < b; i++) {
             document.getElementById("byte" + i).style.visibility = "visible";
             document.getElementById("byte" + i).style.float = "left";
+            if (type == "string") {
+                document.getElementById("charcode" + (7-i)).style.visibility = "visible";
+                document.getElementById("charcode" + (7-i)).innerHTML = parseInt(str.substring(i * 8, i * 8 + 8), 2)+"<sub>10</sub>";
+            }
         }
         //fills in bits for b bytes
         for (i = 0; i < b * 8; i++) {
@@ -760,7 +769,7 @@ function toggle(bit) {
         //console.log(bin.length);
         bin = bin.substr(0, bit) + Math.abs(bin.charAt(bit).valueOf() - 1) + bin.substring(bit + 1);
         //console.log(bin.substr(0, bit).length);
-        console.log(type);
+        //console.log(type);
         if (type == "d") {
             binaryDouble();
         }
