@@ -4,6 +4,12 @@ var type = "";
 var sig = "";
 var exp = "";
 
+function desc() {
+    if (type == "ub") {
+        document.getElementById("desc").innerHTML = "An Unsigned Byte Integer stores a whole number in the range [0,255]. The whole number is converted from base 10 to base 2 to be stored in binary. If one tries to store a number larger than 255, it will still be converted to base 2, but only the first eight digits are saved. For example 257 in binary is 100000001, but only 00000001 is saved, and the value stored would be 1, not 257.";
+    }
+}
+
 function clear() {
     document.getElementById("input").value = "";
 }
@@ -159,6 +165,7 @@ function randomUnsignedByte(bool) {
         value = "" + Math.floor(Math.random() * 256);
         bin = ubBin(value.valueOf());
         type = "ub";
+        desc();
         unsignedByte();
     }
 }
