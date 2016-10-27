@@ -26,13 +26,16 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 
 <header>
     <button class="tab" id="boolean" style="background-color:#228822;color:#114411;" type="button" onclick="randomBoolean(false)">Boolean</button>
-    <button class="tab" id="sb" type="button" style="background-color:#0044ff;color:#002288;" onclick="randomSignedByte(false)">Signed Byte Integer</button>
     <button class="tab" id="ub" style="background-color:#0044ff;color:#002288;" type="button" onclick="randomUnsignedByte(false)">Unsigned Byte Integer</button>
+    <button class="tab" id="sb" type="button" style="background-color:#0044ff;color:#002288;" onclick="randomSignedByte(false)">Signed Byte Integer</button>
     <button class="tab" id="float" style="background-color:#ff8800;color:#884400;" type="button" onclick="randomFloat(false)">Float</button>
     <button class="tab" id="double" style="background-color:#ff8800;color:#884400;" type="button" onclick="randomDouble(false)">Double</button>
     <button class="tab" id="string" style="background-color:#ff8888;color:#884444;" type="button" onclick="randomString(false)">String</button>
     <span id="temp"> Choose a data type!</span>
 </header>
+<br>
+<button class="tab" id="explore" type="button" onclick="explore()" style="display:none;">Explore</button>
+<button class="tab" id="test" type="button" onclick="test()" style="display:none;">Test</button>
 <br>
 <br>
 
@@ -54,6 +57,8 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 
     <button id="b1" type="button" style="font-size:12pt;line-height:16px;margin:10px;" onclick="document.getElementById('input').value = '';">Clear</button>
     <button id="b2" type="button" style="font-size:12pt;line-height:16px;margin:10px;" onclick="random()">Random</button>
+    <button id="b3" type="button" style="font-size:12pt;line-height:16px;margin:10px;" onclick="check()">Check Answer</button>
+    <button id="b4" type="button" style="font-size:12pt;line-height:16px;margin:10px;" onclick="newTest()">New Problem</button>
 
     <br>
     <div id="bytes" style="display:block;">
@@ -176,6 +181,8 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
     
     <br>
     <br>
+    <p id="feedback" style="font-size:20px;font-family:monospace;"></p>
+
     <div id="mantissa1" class="mantissa">
         <table style="border-collapse:collapse;text-align:center;">
             <tr style="">
@@ -327,7 +334,7 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 <br>
 
 <footer style="width:100%;position:fixed;left:0;bottom:0;background-color:#88aaff;padding:4px;border-top:solid 2px;border-color:#4466aa;">
-    <span style="font-family:monospace;font-size:16px;"><b>Copyright &copy; 2016 Jonathan White</b> v 1.21</span>
+    <span style="font-family:monospace;font-size:16px;"><b>Copyright &copy; 2016 Jonathan White</b> v 1.30</span>
 </footer>
 
 </body>

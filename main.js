@@ -1,10 +1,12 @@
 //Jonathan White 2016
-//v 1.21
+//v 1.30
 var value = "";
 var bin = "";
 var type = "";
 var sig = "";
 var exp = "";
+var mode = "explore";
+var cBin = "";
 
 function desc() {
     if (type == "ub") {
@@ -24,6 +26,89 @@ function desc() {
     }
     else if (type == "string") {
         document.getElementById("desc").innerHTML = "A <b>String</b>, also called a literal, is a <b>sequence of characters</b>. Depending on the encoding each character can be represented as either one or two bytes. In this case each character is one byte. Each character has a corresponding number that depends on the encoding. These characters follow the <b><a href='http://ascii.cl/htmlcodes.htm' target='_blank'>HTML Codes</a></b>. This number is then coverted to binary and stored as an <b>Unsigned Byte</b>." ;
+    }
+}
+
+function explore() {
+        //mode = "explore";
+        document.getElementById("explore").style.display = "initial";
+        document.getElementById("test").style.display = "initial";
+        document.getElementById("explore").style.border = "solid 4px";
+        document.getElementById("test").style.border = "solid 2px";
+        document.getElementById("info").innerHTML = "Input a custom value in the white box or click to toggle the green bits";
+
+        if (mode == "test") {
+            mode = "explore";
+            document.getElementById("b1").style.display = "initial";
+            document.getElementById("b2").style.display = "initial";
+            document.getElementById("b3").style.display = "none";
+            document.getElementById("b4").style.display = "none";
+            document.getElementById("input").readOnly = false;
+            document.getElementById("feedback").innerHTML = "";
+            document.getElementById("feedback").style.display = "none";
+            document.getElementById("desc").style.display = "block";
+
+            if (type == "ub") {
+                randomUnsignedByte(true);
+            }
+            else if (type == "sb") {
+                randomSignedByte(true);
+            }
+            else if (type == "string") {
+                document.getElementById("charcodes").style.display = "table-row";
+                randomString(true);
+            }
+        }
+}
+
+function test(){
+    document.getElementById("explore").style.display = "initial";
+    document.getElementById("test").style.display = "initial";
+    document.getElementById("explore").style.border = "solid 2px";
+    document.getElementById("test").style.border = "solid 4px";
+    document.getElementById("info").innerHTML = "Convert the value to binary on the byte(s) below. Click the bits to toggle their value.";
+
+    if (mode == "explore") {
+        mode = "test";
+        document.getElementById("b1").style.display = "none";
+        document.getElementById("b2").style.display = "none";
+        document.getElementById("b3").style.display = "initial";
+        document.getElementById("b4").style.display = "initial";
+        document.getElementById("input").readOnly = true;
+        document.getElementById("feedback").innerHTML = "";
+        document.getElementById("feedback").style.display = "initial";
+        document.getElementById("desc").style.display = "none";
+
+        if(type == "ub"){
+            randomUnsignedByte(true);
+            cBin = bin;
+            bin = "00000000"
+            showBytes(1, bin);
+        }
+        else if (type == "sb") {
+
+        }
+        else if (type == "string") {
+            document.getElementById("charcodes").style.display = "none";
+        }
+    }
+}
+
+function newTest() {
+    mode = "explore";
+    test();
+}
+
+function check() {
+    if (type == "ub") {
+        if (bin == cBin) {
+            //console.log("Correct!");
+            document.getElementById("feedback").innerHTML = "You are correct!";
+        }
+        else {
+            //console.log("Wrong.");
+            document.getElementById("feedback").innerHTML = "Not quite. The correct answer was:"
+        }
     }
 }
 
@@ -124,10 +209,13 @@ function customSignedByte(value) {
 
 function randomSignedByte(bool) {
     if (type != "sb" || bool) {
-        type = "sb";
-        unClick()
-        document.getElementById("sb").style.borderWidth = "5";
-        desc();
+        if (type != "sb") {
+            type = "sb";
+            unClick()
+            document.getElementById("sb").style.borderWidth = "5";
+            desc();
+            explore();
+        }
 
         value = "" + Math.floor(Math.random() * 256)-128;
         bin = ubBin((value.valueOf() + 256) % 256);
@@ -177,14 +265,19 @@ function customUnsignedByte(value) {
 
 function randomUnsignedByte(bool) {
     if (type != "ub" || bool) {
-        type = "ub";
-        unClick()
-        document.getElementById("ub").style.borderWidth = "5";
-        desc();
+        if (type != "ub") {
+            type = "ub";
+            unClick()
+            document.getElementById("ub").style.borderWidth = "5";
+            desc();
+            explore();
+        }
 
         value = "" + Math.floor(Math.random() * 256);
         bin = ubBin(value.valueOf());
-        
+        for (i = bin.length; i < 8; i++) {
+            bin = "0" + bin;
+        }
         unsignedByte();
     }
 }
@@ -215,12 +308,14 @@ function customString(str) {
 
 function randomString(bool) {
     if (type != "string" || bool) {
-        type = "string";
-        unClick()
-        document.getElementById("string").style.borderWidth = "5";
-        document.getElementById("charcodes").style.display = "table-row";
-        desc();
-
+        if (type != "string") {
+            type = "string";
+            unClick()
+            document.getElementById("string").style.borderWidth = "5";
+            document.getElementById("charcodes").style.display = "table-row";
+            desc();
+            explore();
+        }
         var strings = ["ABcdEFgh", "Hello", "1234", "abcd1234"];
         value = strings[Math.floor(Math.random() * strings.length)];
         bin = sBin(value);
@@ -681,6 +776,17 @@ function unClick() {
 	document.getElementById("mantissa1").style.display = "none";
 	document.getElementById("mantissa2").style.display = "none";
 	document.getElementById("temp").style.visibility = "hidden";
+
+	document.getElementById("explore").style.display = "none";
+	document.getElementById("test").style.display = "none";
+	document.getElementById("b1").style.display = "initial";
+	document.getElementById("b2").style.display = "initial";
+	document.getElementById("b3").style.display = "none";
+	document.getElementById("b4").style.display = "none";
+
+	document.getElementById("feedback").innerHTML = "";
+	document.getElementById("feedback").style.display = "none";
+	document.getElementById("desc").style.display = "block";
 }
 
 function ubBin(n){
@@ -802,20 +908,26 @@ function toggle(bit) {
         bin = bin.substr(0, bit) + Math.abs(bin.charAt(bit).valueOf() - 1) + bin.substring(bit + 1);
         //console.log(bin.substr(0, bit).length);
         //console.log(type);
-        if (type == "d") {
-            binaryDouble();
+        if (mode == "explore") {
+            if (type == "d") {
+                binaryDouble();
+            }
+            else if (type == "f") {
+                binaryFloat();
+            }
+            else if (type == "ub") {
+                binaryUnsignedByte();
+            }
+            else if (type == "sb") {
+                binarySignedByte();
+            }
+            else if (type == "string") {
+                binaryString();
+            }
         }
-        else if (type == "f") {
-            binaryFloat();
+        else if (mode == "test") {
+            showBytes(bin.length/8,bin);
         }
-        else if (type == "ub") {
-            binaryUnsignedByte();
-        }
-        else if (type == "sb") {
-            binarySignedByte();
-        }
-        else if (type == "string") {
-            binaryString();
-        }
+
     }
 }
