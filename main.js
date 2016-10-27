@@ -1,3 +1,5 @@
+//Jonathan White 2016
+//v 1.21
 var value = "";
 var bin = "";
 var type = "";
@@ -6,7 +8,22 @@ var exp = "";
 
 function desc() {
     if (type == "ub") {
-        document.getElementById("desc").innerHTML = "An Unsigned Byte Integer stores a whole number in the range [0,255]. The whole number is converted from base 10 to base 2 to be stored in binary. If one tries to store a number larger than 255, it will still be converted to base 2, but only the first eight digits are saved. For example 257 in binary is 100000001, but only 00000001 is saved, and the value stored would be 1, not 257.";
+        document.getElementById("desc").innerHTML = "An <b>Unsigned Byte Integer</b> stores a whole number in the range <b>0 to 255</b>. The whole number is converted from base 10 to base 2 to be stored in binary. If one tries to store a number larger than 255, it will still be converted to base 2, but only the first eight digits are saved. For example 257 in binary is 100000001, but only 00000001 is saved, and the value stored would be 1, not 257.";
+    }
+    else if (type == "sb") {
+        document.getElementById("desc").innerHTML = "A <b>Signed Byte Integer</b> stores a whole number in the range <b>-128 to 127</b>. The number is stored similarly to an unsigned byte, where each bit represents a power of 2. However unlike an Unsigned Byte, the left-most bit, called the <b>most significant bit (msb)</b> is signed. This means that it represents a negative number instead of a positive number. In the case of one byte, the <b>msb</b> represents -128 instead of +128. For example 11111111 is equal to (-128 + 64 + 32 + 16 + 8 + 4 + 2 + 1), which is -1.";
+    }
+    else if (type == "boolean") {
+        document.getElementById("desc").innerHTML = "A <b>Boolean</b> is a very simple data type that only needs one bit. A boolean has only two states: <b>true or false</b>. Booleans typically show up when evaluating conditional statements. 'Does something equal something else?' only has two answers, yes or no, and would be could with a boolean.";
+    }
+    else if (type == "f") {
+        document.getElementById("desc").innerHTML = "";
+    }
+    else if (type == "d") {
+        document.getElementById("desc").innerHTML = "";
+    }
+    else if (type == "string") {
+        document.getElementById("desc").innerHTML = "A <b>String</b>, also called a literal, is a <b>sequence of characters</b>. Depending on the encoding each character can be represented as either one or two bytes. In this case each character is one byte. Each character has a corresponding number that depends on the encoding. These characters follow the <b><a href='http://ascii.cl/htmlcodes.htm' target='_blank'>HTML Codes</a></b>. This number is then coverted to binary and stored as an <b>Unsigned Byte</b>." ;
     }
 }
 
@@ -107,15 +124,16 @@ function customSignedByte(value) {
 
 function randomSignedByte(bool) {
     if (type != "sb" || bool) {
+        type = "sb";
         unClick()
         document.getElementById("sb").style.borderWidth = "5";
+        desc();
 
         value = "" + Math.floor(Math.random() * 256)-128;
         bin = ubBin((value.valueOf() + 256) % 256);
         for (i = bin.length; i < 8; i++) {
             bin = "0" + bin;
         }
-        type = "sb";
         signedByte();
     }
 }
@@ -159,13 +177,14 @@ function customUnsignedByte(value) {
 
 function randomUnsignedByte(bool) {
     if (type != "ub" || bool) {
+        type = "ub";
         unClick()
         document.getElementById("ub").style.borderWidth = "5";
+        desc();
 
         value = "" + Math.floor(Math.random() * 256);
         bin = ubBin(value.valueOf());
-        type = "ub";
-        desc();
+        
         unsignedByte();
     }
 }
@@ -196,14 +215,15 @@ function customString(str) {
 
 function randomString(bool) {
     if (type != "string" || bool) {
+        type = "string";
         unClick()
         document.getElementById("string").style.borderWidth = "5";
         document.getElementById("charcodes").style.display = "table-row";
+        desc();
 
         var strings = ["ABcdEFgh", "Hello", "1234", "abcd1234"];
         value = strings[Math.floor(Math.random() * strings.length)];
         bin = sBin(value);
-        type = "string"
         string();
     }
 }
@@ -247,9 +267,11 @@ function customBoolean(value) {
 
 function randomBoolean(bool) {
     if (type != "boolean" || bool) {
+        type = "boolean";
         unClick();
         document.getElementById("boolean").style.borderWidth = "5";
         document.getElementById("input").value = " ";
+        desc();
 
         if (Math.random() < 0.5) {
             bin = "0";
@@ -257,7 +279,6 @@ function randomBoolean(bool) {
         else {
             bin = "1";
         }
-        type = "boolean";
         boolean();
     }
 }
@@ -345,10 +366,12 @@ function customFloat(d) {
 
 function randomFloat(bool) {
     if (type != "f" || bool) {
+        type = "f";
         unClick()
         document.getElementById("float").style.borderWidth = "5";
         document.getElementById("input").value = " ";
         document.getElementById("mantissa1").style.display = "block";
+        desc();
 
         value = 0;
         if (Math.random() < .7) {
@@ -526,10 +549,12 @@ function customDouble(d) {
 
 function randomDouble(bool) {
     if (type != "d" || bool) {
+        type = "d";
         unClick()
         document.getElementById("double").style.borderWidth = "5";
         document.getElementById("input").value = " ";
         document.getElementById("mantissa2").style.display = "block";
+        desc();
 
         value = 0;
         if (Math.random() < .7) {
