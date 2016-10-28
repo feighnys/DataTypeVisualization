@@ -1,5 +1,5 @@
 //Jonathan White 2016
-//v 1.30
+//v 1.31
 var value = "";
 var bin = "";
 var type = "";
@@ -46,6 +46,7 @@ function explore() {
             document.getElementById("input").readOnly = false;
             document.getElementById("feedback").innerHTML = "";
             document.getElementById("feedback").style.display = "none";
+            document.getElementById("bytesA").style.display = "none";
             document.getElementById("desc").style.display = "block";
 
             if (type == "ub") {
@@ -77,7 +78,9 @@ function test(){
         document.getElementById("input").readOnly = true;
         document.getElementById("feedback").innerHTML = "";
         document.getElementById("feedback").style.display = "initial";
+        document.getElementById("bytesA").style.display = "none";
         document.getElementById("desc").style.display = "none";
+        document.getElementById("b3").disabled = false;
 
         if(type == "ub"){
             randomUnsignedByte(true);
@@ -86,10 +89,17 @@ function test(){
             showBytes(1, bin);
         }
         else if (type == "sb") {
-
+            randomSignedByte(true);
+            cBin = bin;
+            bin = "00000000"
+            showBytes(1, bin);
         }
         else if (type == "string") {
             document.getElementById("charcodes").style.display = "none";
+            randomString(true);
+            cBin = bin;
+            bin = bin.replace(/1/g, "0");
+            showBytes(bin.length / 8, bin);
         }
     }
 }
@@ -100,15 +110,41 @@ function newTest() {
 }
 
 function check() {
-    if (type == "ub") {
-        if (bin == cBin) {
-            //console.log("Correct!");
-            document.getElementById("feedback").innerHTML = "You are correct!";
+    document.getElementById("b3").disabled = true;
+
+    if (bin == cBin) {
+        //console.log("Correct!");
+        document.getElementById("feedback").innerHTML = "You are correct!";
+    }
+    else {
+        //console.log("Wrong.");
+        document.getElementById("feedback").innerHTML = "Not quite. The correct answer was:"
+        document.getElementById("bytesA").style.display = "block";
+        document.getElementById("charcodesA").style.display = "none";
+
+        for (i = 0; i < 8; i++) {
+            document.getElementById("byte" + i + "A").style.display = "none";
         }
-        else {
-            //console.log("Wrong.");
-            document.getElementById("feedback").innerHTML = "Not quite. The correct answer was:"
+        for (i = 0; i < Math.floor(cBin.length/8); i++) {
+            document.getElementById("byte" + i + "A").style.display = "table-cell";
         }
+
+        for (i = 0; i < cBin.length; i++) {
+            document.getElementById("bit"+Math.floor(i/8)+"" + (i%8) + "A").innerHTML = cBin.charAt(cBin.length - 1 - i);
+        }
+        
+        if (type == "string") {
+            document.getElementById("charcodesA").style.display = "table-row";
+            for (i = 0; i < 8; i++) {
+                document.getElementById("charcode" + i + "A").style.display = "none";
+            }
+            for (i = 0; i < Math.floor(cBin.length / 8) ; i++) {
+                document.getElementById("charcode" + i + "A").style.display = "table-cell";
+                document.getElementById("charcode" + i + "A").innerHTML = parseInt(cBin.substring(((cBin.length / 8)-1 - i) * 8, ((cBin.length / 8)-1 - i) * 8 + 8), 2) + "<sub>10</sub>";
+            }
+
+        }
+
     }
 }
 

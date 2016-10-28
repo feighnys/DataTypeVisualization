@@ -17,6 +17,8 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 #mantissa2 table tr .mc{width:700px;}
 #bytes table tr td{min-width:158px;font-family:monospace;font-size:14px;border:none;}
 #charcodes td{width:156px;min-width:156px;height:41px;text-align:center;border:none;font-size:20px;}
+#bytesA table tr td{min-width:158px;font-family:monospace;font-size:14px;border:none;}
+#charcodesA td{width:156px;min-width:156px;height:41px;text-align:center;border:none;font-size:20px;}
 
 .center{margin:auto;display:block;}
 </style>
@@ -182,6 +184,119 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
     <br>
     <br>
     <p id="feedback" style="font-size:20px;font-family:monospace;"></p>
+    <br>
+    <div id="bytesA" style="display:none;">
+        <table style="border:none;">
+            <tr style="border:none;">
+                <td id="byte7A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">56</span>
+                    <br>
+                    <button class="bit" onclick="toggle(63)" id="bit77A">7</button>
+                    <button class="bit" onclick="toggle(62)" id="bit76A">6</button>
+                    <button class="bit" onclick="toggle(61)" id="bit75A">5</button>
+                    <button class="bit" onclick="toggle(60)" id="bit74A">4</button>
+                    <button class="bit" onclick="toggle(59)" id="bit73A">3</button>
+                    <button class="bit" onclick="toggle(58)" id="bit72A">2</button>
+                    <button class="bit" onclick="toggle(57)" id="bit71A">1</button>
+                    <button class="bit" onclick="toggle(56)" id="bit70A">0</button>
+                </td>
+                <td id="byte6A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">48</span>
+                    <br>
+                    <button class="bit" onclick="toggle(55)" id="bit67A">7</button>
+                    <button class="bit" onclick="toggle(54)" id="bit66A">6</button>
+                    <button class="bit" onclick="toggle(53)" id="bit65A">5</button>
+                    <button class="bit" onclick="toggle(52)" id="bit64A">4</button>
+                    <button class="bit" onclick="toggle(51)" id="bit63A">3</button>
+                    <button class="bit" onclick="toggle(50)" id="bit62A">2</button>
+                    <button class="bit" onclick="toggle(49)" id="bit61A">1</button>
+                    <button class="bit" onclick="toggle(48)" id="bit60A">0</button>
+                </td>
+                <td id="byte5A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">40</span>
+                    <br>
+                    <button class="bit" onclick="toggle(47)" id="bit57A">7</button>
+                    <button class="bit" onclick="toggle(46)" id="bit56A">6</button>
+                    <button class="bit" onclick="toggle(45)" id="bit55A">5</button>
+                    <button class="bit" onclick="toggle(44)" id="bit54A">4</button>
+                    <button class="bit" onclick="toggle(43)" id="bit53A">3</button>
+                    <button class="bit" onclick="toggle(42)" id="bit52A">2</button>
+                    <button class="bit" onclick="toggle(41)" id="bit51A">1</button>
+                    <button class="bit" onclick="toggle(40)" id="bit50A">0</button>
+                </td>
+                <td id="byte4A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">32</span>
+                    <br>
+                    <button class="bit" onclick="toggle(39)" id="bit47A">7</button>
+                    <button class="bit" onclick="toggle(38)" id="bit46A">6</button>
+                    <button class="bit" onclick="toggle(37)" id="bit45A">5</button>
+                    <button class="bit" onclick="toggle(36)" id="bit44A">4</button>
+                    <button class="bit" onclick="toggle(35)" id="bit43A">3</button>
+                    <button class="bit" onclick="toggle(34)" id="bit42A">2</button>
+                    <button class="bit" onclick="toggle(33)" id="bit41A">1</button>
+                    <button class="bit" onclick="toggle(32)" id="bit40A">0</button>
+                </td>
+                <td id="byte3A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">24</span>
+                    <br>
+                    <button class="bit" onclick="toggle(31)" id="bit37A">7</button>
+                    <button class="bit" onclick="toggle(30)" id="bit36A">6</button>
+                    <button class="bit" onclick="toggle(29)" id="bit35A">5</button>
+                    <button class="bit" onclick="toggle(28)" id="bit34A">4</button>
+                    <button class="bit" onclick="toggle(27)" id="bit33A">3</button>
+                    <button class="bit" onclick="toggle(26)" id="bit32A">2</button>
+                    <button class="bit" onclick="toggle(25)" id="bit31A">1</button>
+                    <button class="bit" onclick="toggle(24)" id="bit30A">0</button>
+                </td>
+                <td id="byte2A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">16</span>
+                    <br>
+                    <button class="bit" onclick="toggle(23)" id="bit27A">7</button>
+                    <button class="bit" onclick="toggle(22)" id="bit26A">6</button>
+                    <button class="bit" onclick="toggle(21)" id="bit25A">5</button>
+                    <button class="bit" onclick="toggle(20)" id="bit24A">4</button>
+                    <button class="bit" onclick="toggle(19)" id="bit23A">3</button>
+                    <button class="bit" onclick="toggle(18)" id="bit22A">2</button>
+                    <button class="bit" onclick="toggle(17)" id="bit21A">1</button>
+                    <button class="bit" onclick="toggle(16)" id="bit20A">0</button>
+                </td>
+                <td id="byte1A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">8</span>
+                    <br>
+                    <button class="bit" onclick="toggle(15)" id="bit17A">7</button>
+                    <button class="bit" onclick="toggle(14)" id="bit16A">6</button>
+                    <button class="bit" onclick="toggle(13)" id="bit15A">5</button>
+                    <button class="bit" onclick="toggle(12)" id="bit14A">4</button>
+                    <button class="bit" onclick="toggle(11)" id="bit13A">3</button>
+                    <button class="bit" onclick="toggle(10)" id="bit12A">2</button>
+                    <button class="bit" onclick="toggle(9)" id="bit11A">1</button>
+                    <button class="bit" onclick="toggle(8)" id="bit10A">0</button>
+                </td>
+                <td id="byte0A" style="display:none;padding:4px;min-width:158px;">
+                    <span style="float:right;">0</span>
+                    <br>
+                    <button class="bit" onclick="toggle(7)" id="bit07A">7</button>
+                    <button class="bit" onclick="toggle(6)" id="bit06A">6</button>
+                    <button class="bit" onclick="toggle(5)" id="bit05A">5</button>
+                    <button class="bit" onclick="toggle(4)" id="bit04A">4</button>
+                    <button class="bit" onclick="toggle(3)" id="bit03A">3</button>
+                    <button class="bit" onclick="toggle(2)" id="bit02A">2</button>
+                    <button class="bit" onclick="toggle(1)" id="bit01A">1</button>
+                    <button class="bit" onclick="toggle(0)" id="bit00A">0</button>
+                </td>
+            </tr>
+            <tr id="charcodesA" style="display:none;border:none;">
+                <td id="charcode7A" style="display:none;font-size:20px;"></td>
+                <td id="charcode6A" style="display:none;font-size:20px;"></td>
+                <td id="charcode5A" style="display:none;font-size:20px;"></td>
+                <td id="charcode4A" style="display:none;font-size:20px;"></td>
+                <td id="charcode3A" style="display:none;font-size:20px;"></td>
+                <td id="charcode2A" style="display:none;font-size:20px;"></td>
+                <td id="charcode1A" style="display:none;font-size:20px;"></td>
+                <td id="charcode0A" style="display:none;font-size:20px;"></td>
+            </tr>
+        </table>
+    </div>
 
     <div id="mantissa1" class="mantissa">
         <table style="border-collapse:collapse;text-align:center;">
@@ -334,7 +449,7 @@ table,th,td{border:solid 2px;font-family:monospace;font-size:16pt;border-collaps
 <br>
 
 <footer style="width:100%;position:fixed;left:0;bottom:0;background-color:#88aaff;padding:4px;border-top:solid 2px;border-color:#4466aa;">
-    <span style="font-family:monospace;font-size:16px;"><b>Copyright &copy; 2016 Jonathan White</b> v 1.30</span>
+    <span style="font-family:monospace;font-size:16px;"><b>Copyright &copy; 2016 Jonathan White</b> v 1.31</span>
 </footer>
 
 </body>
