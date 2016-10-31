@@ -1,5 +1,5 @@
 //Jonathan White 2016
-//v 1.31
+//v 1.32
 var value = "";
 var bin = "";
 var type = "";
@@ -19,10 +19,10 @@ function desc() {
         document.getElementById("desc").innerHTML = "A <b>Boolean</b> is a very simple data type that only needs one bit. A boolean has only two states: <b>true or false</b>. Booleans typically show up when evaluating conditional statements. 'Does something equal something else?' only has two answers, yes or no, and would be could with a boolean.";
     }
     else if (type == "f") {
-        document.getElementById("desc").innerHTML = "";
+        document.getElementById("desc").innerHTML = "A <b>Single Precision Floating Point Number</b>, usaully called a float spans 4 bytes. Unlike an integer, a float does not have to be a whole number, it can have decimal places. Floats can store a very wide range of values because the decimal can move, or float, depending on how large the number is. This is because the number is also not just converted to base 2, but instead is represented by an expression that is equivilant (or atleast very close) to the number. The equation consists of three parts: the <b>sign</b>, the <b>exponent</b>, and the <b>mantissa</b>.<li>The sign only consists of one bit, it it is 0, the number is positive, if it is 1 the number is negative. Mathematically this is represented as (-1)<sup>sign</sub>.</li><li>The exponent takes up the next 8 bits, and is stored as an unsigned integer. When calculating the number, 127 is subtracted from the value of the exponent, and two then is raised to that power. This is what gives floating point numbers the abillity to store very large, or very small numbers.</li><li>The mantissa consists of the remaining 23 bits. It is also stored as an unsigned integer. The mantissa is then converted to a value between 1 and 2 by concatenated '1.' in front of the integer value. Foe example a value of 524 stoed in the mantissa would become 1.524.</li>Each of the three parts are then multiplied together as shown in the equation:<br>(-1)<sup>Sign</sup> * 2<sup>(Exponent-127)</sup> * 1.Mantissa<br>The value of that equation is the value of the float. However, there are a few special cases. If all the bits of the exponent and mantissa are 0, the value of the float will also be 0, and not 2<sup>-127</sup>. If every bit of the exponent is 1, and the entire mantissa is 0, the float represents infinity, or negative infinity if the sign is 1. If the exponent is all 1's and the mantissa is anything but 0, the float with have a value of NaN, which represents an invalid number.";
     }
     else if (type == "d") {
-        document.getElementById("desc").innerHTML = "";
+        document.getElementById("desc").innerHTML = "A <b>Double Precision Floating Point Number</b> usually called a double takes up 8 bytes. It is stored just like a <b> single precision floating point</b>, except it consists of <i>double</i> the amount of bytes, hence the name. The sign still only consists of 1 bit, but the exponents noew spans 11 bits, and 1023 is subtracted from its integer value. The mantissa spans a whopping 52 bits, but otherwise behaves just the same as in a float. The equation for a double is:<br>(-1)<sup>Sign</sup> * 2<sup>(Exponent-1023)</sup> * 1.Mantissa<br>The only difference is how the exponent is calculated and the size the mantissa can reach. This allows a double to cover a much wider range of values than a float, and be precise to more decimal places. The same special cases still apply.";
     }
     else if (type == "string") {
         document.getElementById("desc").innerHTML = "A <b>String</b>, also called a literal, is a <b>sequence of characters</b>. Depending on the encoding each character can be represented as either one or two bytes. In this case each character is one byte. Each character has a corresponding number that depends on the encoding. These characters follow the <b><a href='http://ascii.cl/htmlcodes.htm' target='_blank'>HTML Codes</a></b>. This number is then coverted to binary and stored as an <b>Unsigned Byte</b>." ;
@@ -82,21 +82,30 @@ function test(){
         document.getElementById("desc").style.display = "none";
         document.getElementById("b3").disabled = false;
 
-        if(type == "ub"){
-            randomUnsignedByte(true);
+        if (type == "ub") {
+            var valuet = value;
+            while (valuet == value) {
+                randomUnsignedByte(true);
+            }
             cBin = bin;
             bin = "00000000"
             showBytes(1, bin);
         }
         else if (type == "sb") {
-            randomSignedByte(true);
+            var valuet = value;
+            while (valuet == value) {
+                randomSignedByte(true);
+            }
             cBin = bin;
             bin = "00000000"
             showBytes(1, bin);
         }
         else if (type == "string") {
             document.getElementById("charcodes").style.display = "none";
-            randomString(true);
+            var valuet = value;
+            while (valuet == value) {
+                randomString(true);
+            }
             cBin = bin;
             bin = bin.replace(/1/g, "0");
             showBytes(bin.length / 8, bin);
@@ -352,7 +361,11 @@ function randomString(bool) {
             desc();
             explore();
         }
-        var strings = ["ABcdEFgh", "Hello", "1234", "abcd1234"];
+        if (mode == "explore")
+            var strings = ["ABcd", "abc123", "ABcdEFgh", "12345678", "Hello", "1234", "abcd", "Cat", "Dog", "Feighny", "Words", "ABC123", "Hot Dog", "Binary", "Base 2", "Pizza", "8 Bit", "String"];
+        else
+            var strings = ["Hello", "Cat", "Dog", "Feighny", "Words", "Hot Dog", "Binary", "Base 2", "Pizza", "8 Bit", "String", "Zero", "3.14", "1000", "Hotel"];
+
         value = strings[Math.floor(Math.random() * strings.length)];
         bin = sBin(value);
         string();
