@@ -395,11 +395,11 @@ function customBoolean(value) {
     if (value.match("^(((T|t)(R|r)(U|u))|((F|f)(A|a)(L|l)(S|s)))(E|e)$") || value.match("^0|1$")) {
         //document.getElementById("input").value = value;
         if (value.match("^(T|t)(R|r)(U|u)(E|e)$") || value.match("^1$")) {
-            bin = "1";
+            bin = "00000001";
             value = "True";
         }
         else {
-            bin = "0";
+            bin = "00000000";
             value = "False";
         }
         boolean();
@@ -418,10 +418,10 @@ function randomBoolean(bool) {
         desc();
 
         if (Math.random() < 0.5) {
-            bin = "0";
+            bin = "00000000";
         }
         else {
-            bin = "1";
+            bin = "00000001";
         }
         boolean();
     }
@@ -432,10 +432,10 @@ function binaryBoolean(){
 }
 
 function boolean() {
-    if (bin == "0") {
+    if (bin == "00000000") {
         document.getElementById("input").value = "False";
     }
-    else if(bin == "1") {
+    else if(bin == "00000001") {
         document.getElementById("input").value = "True";
     }
 
@@ -870,15 +870,9 @@ function showBytes(b, str){
 
         document.getElementById("charcode" + i).style.display = "none";
     }
-    document.getElementById("bytebool").style.display = "none";
+    //document.getElementById("bytebool").style.display = "none";
     //document.getElementById("bytebool").style.float = "right";
 
-    if (type == "boolean") {
-        document.getElementById("bytebool").style.display = "table-cell";
-        //document.getElementById("bytebool").style.float = "left";
-        document.getElementById("bitbool").innerHTML = str;
-    }
-    else {
         //shows b bytes
         for (i = 0; i < b; i++) {
             document.getElementById("byte" + i).style.display = "table-cell";
@@ -897,7 +891,6 @@ function showBytes(b, str){
                 document.getElementById("bit" + Math.floor(i / 8) + i % 8).innerHTML = "0";
             }
         }
-    }
 
 }
 
@@ -973,6 +966,9 @@ function toggle(bit) {
             else if (type == "string") {
                 binaryString();
             }
+		else if (type == "boolean") {
+			binaryBoolean();
+		}
         }
         else if (mode == "test") {
             showBytes(bin.length/8,bin);
