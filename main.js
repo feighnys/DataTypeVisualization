@@ -1,5 +1,5 @@
 //Jonathan White 2016
-//v 1.34
+//v 1.35
 var value = "";
 var bin = "";
 var type = "";
@@ -493,8 +493,8 @@ function customFloat(d) {
             if (man >= 1 & man < 2) { break; }
         }
         man = ("" + man).substring(2);
-        if (man.length >= 9) { man = "" + Math.round((man.substring(0, 8) + "." + man.substring(8)).valueOf()); }
-        if (man.valueOf() >= Math.pow(2, 24)) { man = "" + Math.round((man.substring(0, 7) + "." + man.substring(7)).valueOf()); }
+        if (man.length >= 9) { man = "" + Math.floor((man.substring(0, 8) + "." + man.substring(8)).valueOf()); }
+        if (man.valueOf() >= Math.pow(2, 24)) { man = "" + Math.floor((man.substring(0, 7) + "." + man.substring(7)).valueOf()); }
         if (man.length == 0) { man = 0; }
         sig = man;
         //double();
@@ -676,8 +676,8 @@ function customDouble(d) {
                 if (man >= 1 & man < 2) { break; }
             }
             man = ("" + man).substring(2);
-            if (man.length > 16) { man = "" + Math.round((man.substring(0, 16) + "." + man.substring(16)).valueOf()); }
-            if (man.valueOf() >= Math.pow(2, 52)) { man = "" + Math.round((man.substring(0, 15) + "." + man.substring(15)).valueOf()); }
+            if (man.length > 16) { man = "" + Math.floor((man.substring(0, 16) + "." + man.substring(16)).valueOf()); }
+            if (man.valueOf() >= Math.pow(2, 52)) { man = "" + Math.floor((man.substring(0, 15) + "." + man.substring(15)).valueOf()); }
             if (man.length == 0) { man = 0; }
             sig = man;
             //double();
