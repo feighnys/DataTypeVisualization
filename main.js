@@ -1,5 +1,5 @@
 //Jonathan White 2016
-//v 1.32
+//v 1.33
 var value = "";
 var bin = "";
 var type = "";
@@ -441,7 +441,7 @@ function boolean() {
 
 	document.getElementById("type").innerHTML = "Boolean";
 	type="boolean";
-	showBytes(0,bin);
+	showBytes(1,bin);
 }
 
 function customFloat(d) {
