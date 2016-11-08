@@ -1,5 +1,5 @@
 //Jonathan White 2016
-//v 1.33
+//v 1.34
 var value = "";
 var bin = "";
 var type = "";
@@ -432,6 +432,7 @@ function binaryBoolean(){
 }
 
 function boolean() {
+	bin = "0000000"+bin.charAt(7);
     if (bin == "00000000") {
         document.getElementById("input").value = "False";
     }
