@@ -20,10 +20,10 @@ function desc() {
         document.getElementById("desc").innerHTML = "A <b>Boolean</b> is a very simple data type that only needs one bit. A boolean has only two states: <b>true or false</b>. Booleans typically show up when evaluating conditional statements. 'Does something equal something else?' only has two answers, yes or no, and would be could with a boolean.";
     }
     else if (type == "f") {
-        document.getElementById("desc").innerHTML = "A <b>Single Precision Floating Point Number</b>, usaully called a float spans 4 bytes. Unlike an integer, a float does not have to be a whole number, it can have decimal places. Floats can store a very wide range of values because the decimal can move, or float, depending on how large the number is. This is because the number is also not just converted to base 2, but instead is represented by an expression that is equivilant (or atleast very close) to the number. The equation consists of three parts: the <b>sign</b>, the <b>exponent</b>, and the <b>mantissa</b>.<li>The sign only consists of one bit, it it is 0, the number is positive, if it is 1 the number is negative. Mathematically this is represented as (-1)<sup>sign</sub>.</li><li>The exponent takes up the next 8 bits, and is stored as an unsigned integer. When calculating the number, 127 is subtracted from the value of the exponent, and two then is raised to that power. This is what gives floating point numbers the abillity to store very large, or very small numbers.</li><li>The mantissa consists of the remaining 23 bits. It is also stored as an unsigned integer. The mantissa is then converted to a value between 1 and 2 by concatenated '1.' in front of the integer value. Foe example a value of 524 stoed in the mantissa would become 1.524.</li>Each of the three parts are then multiplied together as shown in the equation:<br>(-1)<sup>Sign</sup> * 2<sup>(Exponent-127)</sup> * 1.Mantissa<br>The value of that equation is the value of the float. However, there are a few special cases. If all the bits of the exponent and mantissa are 0, the value of the float will also be 0, and not 2<sup>-127</sup>. If every bit of the exponent is 1, and the entire mantissa is 0, the float represents infinity, or negative infinity if the sign is 1. If the exponent is all 1's and the mantissa is anything but 0, the float with have a value of NaN, which represents an invalid number.";
+        document.getElementById("desc").innerHTML = "A <b>Single Precision Floating Point Number</b>, usaully called a float spans 4 bytes. Unlike an integer, a float does not have to be a whole number, it can have decimal places. Floats can store a very wide range of values because the decimal can move, or float, depending on how large the number is. This is because the number is also not just converted to base 2, but instead is represented by an expression that is equivilant <b>(or atleast very close)</b> to the number. Floating point numbers are not perfect, but they are close enough in most cases. For example 0.1 is actually stored as 0.10000000149011612. For more precision, consider using a double. The previously mentioned equation consists of three parts: the <b>sign</b>, the <b>exponent</b>, and the <b>mantissa</b>.<li>The sign only consists of one bit, it it is 0, the number is positive, if it is 1 the number is negative. Mathematically this is represented as (-1)<sup>sign</sub>.</li><li>The exponent takes up the next 8 bits, and is stored as an unsigned integer. When calculating the number, 127 is subtracted from the value of the exponent, and two then is raised to that power. This is what gives floating point numbers the abillity to store very large, or very small numbers.</li><li>The mantissa consists of the remaining 23 bits. It is also stored as an unsigned integer. The mantissa is then converted to a value between 1 and 2 by dividing the integer by 2<sup>23</sup> and adding 1. For example a value of 4194304 stored in the mantissa would become 1.5. This is considered a <b>normalized</b> mantissa because 1 is added so that it falls between 1 and 2. Sometimes the mantissa is <b>denormalized</b> and 1 is not added so that the mantissa is less than 1. The mantissa is only denormalized when the exponent is equal to 0.</li><br>Each of the three parts are then multiplied together as shown in the equation:<br>(-1)<sup>Sign</sup> * 2<sup>(Exponent-127)</sup> * Mantissa<br>The value of that equation is the value of the float. However, there are a few special cases. If all the bits of the exponent and mantissa are 0, the value of the float will also be 0, and not 2<sup>-127</sup>. If every bit of the exponent is 1, and the entire mantissa is 0, the float represents infinity, or negative infinity if the sign is 1. If the exponent is all 1's and the mantissa is anything but 0, the float with have a value of NaN, which represents an invalid number.";
     }
     else if (type == "d") {
-        document.getElementById("desc").innerHTML = "A <b>Double Precision Floating Point Number</b> usually called a double takes up 8 bytes. It is stored just like a <b> single precision floating point</b>, except it consists of <i>double</i> the amount of bytes, hence the name. The sign still only consists of 1 bit, but the exponents noew spans 11 bits, and 1023 is subtracted from its integer value. The mantissa spans a whopping 52 bits, but otherwise behaves just the same as in a float. The equation for a double is:<br>(-1)<sup>Sign</sup> * 2<sup>(Exponent-1023)</sup> * 1.Mantissa<br>The only difference is how the exponent is calculated and the size the mantissa can reach. This allows a double to cover a much wider range of values than a float, and be precise to more decimal places. The same special cases still apply.";
+        document.getElementById("desc").innerHTML = "A <b>Double Precision Floating Point Number</b> usually called a double takes up 8 bytes. It is stored just like a <b> single precision floating point</b>, except it consists of <i>double</i> the amount of bytes, hence the name. The sign still only consists of 1 bit, but the exponents noew spans 11 bits, and 1023 is subtracted from its integer value. The mantissa spans a whopping 52 bits, but otherwise behaves just the same as in a float. The equation for a double is:<br>(-1)<sup>Sign</sup> * 2<sup>(Exponent-1023)</sup> * Mantissa<br>The only difference is how the exponent is calculated and the size the mantissa can reach. This allows a double to cover a much wider range of values than a float, and be precise to more decimal places. The same special cases still apply.";
     }
     else if (type == "string") {
         document.getElementById("desc").innerHTML = "A <b>String</b>, also called a literal, is a <b>sequence of characters</b>. Depending on the encoding each character can be represented as either one or two bytes. In this case each character is one byte. Each character has a corresponding number that depends on the encoding. These characters follow the <b><a href='http://ascii.cl/htmlcodes.htm' target='_blank'>HTML Codes</a></b>. This number is then coverted to binary and stored as an <b>Unsigned Byte</b>." ;
@@ -462,15 +462,18 @@ function customFloat(d) {
         }
     }
     d = "" + d;
-    if (d == "0" || d == "+0") {
+    if (d == "0" || d == "+0") {console.log("Zero Float")
+
         bin = "0";
         exp = 0;
         sig = 0;
+        man = 0;
     }
     else if (d == "-0") {
         bin = "1";
         exp = 0;
         sig = 0;
+        man = 0;
     }
     else if (d == "Infinity" || d == "infinity" || d == "Inf" || d == "inf" || d == "+Infinity" || d == "+infinity" || d == "+Inf" || d == "+inf") {
         bin = "0";
@@ -665,11 +668,13 @@ function customDouble(d) {
             bin = "0";
             exp = 0;
             sig = 0;
+            man = 0;
         }
         else if (d == "-0") {
             bin = "1";
             exp = 0;
             sig = 0;
+            man = 0;
         }
         else if (d == "Infinity" || d == "infinity" || d == "Inf" || d == "inf" || d == "+Infinity" || d == "+infinity" || d == "+Inf" || d == "+inf") {
             bin = "0";
@@ -682,22 +687,22 @@ function customDouble(d) {
             sig = 0;
         }
         else if (value.match("^(-|\\+)?([0123456789]*\.?[0123456789]+)((E|e)(-|\\+)?[0123456789]+)?$")) {
+            console.log("Value");
             var sign;
             if (d >= 0) { bin = "0" }
             else { bin = "1" }
             d = Math.abs(d);
             exp = 0;
-            var man = 0;
+            man = 0;
             for (exp = 0; exp < 2048; exp++) {
                 man = d / Math.pow(2, exp - 1023);
-                if (man >= 1 & man < 2) { break; }
+                if (exp == 0 && man < 1) break;
+                else if (man >= 1 & man < 2) { break; }
             }
-            man = ("" + man).substring(2);
-            if (man.length > 16) { man = "" + Math.floor((man.substring(0, 16) + "." + man.substring(16)).valueOf()); }
-            if (man.valueOf() >= Math.pow(2, 52)) { man = "" + Math.floor((man.substring(0, 15) + "." + man.substring(15)).valueOf()); }
-            if (man.length == 0) { man = 0; }
-            sig = man;
-            //double();
+            sig = Math.round((man - 1) * Math.pow(2, 52));
+            if (sig >= Math.pow(2, 52)) sig = Math.pow(2, 52) - 1;
+            man = 1 + (sig / Math.pow(2, 52));
+
         }
         else {
             document.getElementById("info").innerHTML = "Invalid Value";
@@ -729,6 +734,8 @@ function randomDouble(bool) {
         }
         exp = Math.floor(Math.random() * Math.pow(2, 11));
         sig = Math.floor(Math.random() * Math.pow(2, 52));
+        man = sig / Math.pow(2, 52);
+        if (exp > 0) man += 1;
 
         double();
     }
@@ -736,6 +743,7 @@ function randomDouble(bool) {
 function binaryDouble() {
     exp = parseInt(bin.substring(1, 12), 2);
     sig = parseInt(bin.substring(12), 2);
+    man = sig / Math.pow(2, 52);
     bin = bin.charAt(0);
     document.getElementById("input").value = " ";
     double();
@@ -745,8 +753,8 @@ function double() {
 
     document.getElementById("equ2").innerHTML = Math.pow(-1, bin.charAt(0).valueOf()) + " * ";
 
-    value = Math.pow(-1,bin.charAt(0).valueOf()) + "." + sig;
-    value = value.valueOf() * Math.pow(2, exp - 1023);
+    //value = Math.pow(-1,bin.charAt(0).valueOf()) + "." + sig;
+    value = Math.pow(-1,bin.charAt(0).valueOf()) * man * Math.pow(2, exp - 1023);
     value = value + "";
     //if (value.indexOf("Inf") != -1) { double();}
     if (value.indexOf(".") == -1 && value.indexOf("f") == -1) {
@@ -775,8 +783,8 @@ function double() {
     document.getElementById("binExp2").innerHTML = bin.substring(1, 12);
 
     document.getElementById("mValue2").innerHTML = sig + "<sub>10</sub>";
-    document.getElementById("manE2").innerHTML = sig;
-    document.getElementById("equ2").innerHTML += "1." + sig;
+    document.getElementById("manE2").innerHTML = "( " + Math.ceil(exp / 2048) + " + " + sig + " / " + Math.pow(2, 52) + " )";
+    document.getElementById("equ2").innerHTML += man;
     document.getElementById("binMan2").innerHTML = bin.substring(12);
 
     document.getElementById("ans2").innerHTML = value;
