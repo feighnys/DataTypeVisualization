@@ -1,5 +1,5 @@
 //Jonathan White 2016
-//v 1.40
+//v 1.41
 var value = "";
 var bin = "";
 var type = "";
