@@ -1,9 +1,10 @@
 //Jonathan White 2016
-//v 1.35
+//v 1.40
 var value = "";
 var bin = "";
 var type = "";
 var sig = "";
+var man = 0;
 var exp = "";
 var mode = "explore";
 var cBin = "";
@@ -487,16 +488,26 @@ function customFloat(d) {
         else { bin = "1" }
         d = Math.abs(d);
         exp = 0;
-        var man = 0;
+        man = 0;
         for (exp = 0; exp < 256; exp++) {
             man = d / Math.pow(2, exp - 127);
-            if (man >= 1 & man < 2) { break; }
+            if (exp == 0 && man < 1) break;
+            else if (man >= 1 & man < 2) { break; }
         }
-        man = ("" + man).substring(2);
-        if (man.length >= 9) { man = "" + Math.floor((man.substring(0, 8) + "." + man.substring(8)).valueOf()); }
-        if (man.valueOf() >= Math.pow(2, 24)) { man = "" + Math.floor((man.substring(0, 7) + "." + man.substring(7)).valueOf()); }
-        if (man.length == 0) { man = 0; }
-        sig = man;
+        //man = ("" + man).substring(2);
+
+        //man = 1.something
+        //sig = integer to be divided by 2^23
+
+        sig = Math.round((man - 1) * Math.pow(2, 23));
+        if (sig >= Math.pow(2, 23)) sig = Math.pow(2, 23) - 1;
+        man = 1 + (sig / Math.pow(2, 23));
+        //man/2^24
+
+        //if (man.length >= 9) { man = "" + Math.floor((man.substring(0, 8) + "." + man.substring(8)).valueOf()); }
+        //if (man.valueOf() >= Math.pow(2, 24)) { man = "" + Math.floor((man.substring(0, 7) + "." + man.substring(7)).valueOf()); }
+        //if (man.length == 0) { man = 0; }
+        //sig = (man / Math.pow(2,24));
         //double();
     }
     else {
@@ -529,6 +540,8 @@ function randomFloat(bool) {
         }
         exp = Math.floor(Math.random() * Math.pow(2, 8));
         sig = Math.floor(Math.random() * Math.pow(2, 23));
+        man = sig / Math.pow(2, 23);
+        if (exp > 0) man += 1;
 
         float();
     }
@@ -537,6 +550,8 @@ function randomFloat(bool) {
 function binaryFloat() {
     exp = parseInt(bin.substring(1, 9), 2);
     sig = parseInt(bin.substring(9), 2);
+    man = sig / Math.pow(2, 23);
+    if (exp > 0) man += 1;
     bin = bin.charAt(0);
     document.getElementById("input").value = " ";
     float();
@@ -545,8 +560,10 @@ function binaryFloat() {
 function float(){
     document.getElementById("equ1").innerHTML = Math.pow(-1, bin.charAt(0).valueOf()) + " * ";
 
-    value = Math.pow(-1, bin.charAt(0).valueOf()) + "." + sig;
-    value = value.valueOf() * Math.pow(2, exp - 127);
+    //sig += "";
+    //sig = sig.substring(2);
+    //value = Math.pow(-1, bin.charAt(0).valueOf()) + "." + sig.substring(2);
+    value = Math.pow(-1, bin.charAt(0).valueOf()) * man * Math.pow(2, exp - 127);
     value = value + "";
     //if (value.indexOf("Inf") != -1) { double();}
     if (value.indexOf(".") == -1 && value.indexOf("f") == -1) {
@@ -575,8 +592,8 @@ function float(){
     document.getElementById("binExp1").innerHTML = bin.substring(1, 9);
 
     document.getElementById("mValue1").innerHTML = sig + "<sub>10</sub>";
-    document.getElementById("manE1").innerHTML = sig;
-    document.getElementById("equ1").innerHTML += "1." + sig;
+    document.getElementById("manE1").innerHTML = "( "+Math.ceil(exp/256)+" + "+sig+" / "+Math.pow(2,24)+" )";
+    document.getElementById("equ1").innerHTML += man;
     document.getElementById("binMan1").innerHTML = bin.substring(9);
 
     document.getElementById("ans1").innerHTML = value;
